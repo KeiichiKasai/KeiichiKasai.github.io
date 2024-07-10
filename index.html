@@ -71,6 +71,96 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Protobuf笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/07/06/Protobuf%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time class="dt-published" datetime="2024-07-06T04:02:21.000Z" itemprop="datePublished">2024-07-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/07/06/Protobuf%E7%AC%94%E8%AE%B0/">Protobuf笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/07/06/Protobuf%E7%AC%94%E8%AE%B0/" data-id="clyfhaq4v000214875pjzdavl" data-title="Protobuf笔记" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-go算法小抄" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/06/29/go%E7%AE%97%E6%B3%95%E5%B0%8F%E6%8A%84/" class="article-date">
+  <time class="dt-published" datetime="2024-06-29T10:09:22.000Z" itemprop="datePublished">2024-06-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/06/29/go%E7%AE%97%E6%B3%95%E5%B0%8F%E6%8A%84/">go算法小抄</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="103-二叉树的锯齿形层序遍历-力扣（LeetCode）"><a href="#103-二叉树的锯齿形层序遍历-力扣（LeetCode）" class="headerlink" title="103. 二叉树的锯齿形层序遍历 - 力扣（LeetCode）"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/binary-tree-zigzag-level-order-traversal/description/">103. 二叉树的锯齿形层序遍历 - 力扣（LeetCode）</a></h1><h2 id="队列和栈"><a href="#队列和栈" class="headerlink" title="队列和栈"></a>队列和栈</h2><p>在go中都可以用切片来简易实现(只进不出可读那种，有较大限制)</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">栈</span><br><span class="line"><span class="keyword">var</span> stack []<span class="type">int</span></span><br><span class="line"></span><br><span class="line">入栈</span><br><span class="line">stack=<span class="built_in">append</span>(stack,x)</span><br><span class="line"></span><br><span class="line">出栈（实际并没有出栈，只是按着栈的性质读取）</span><br><span class="line"><span class="keyword">for</span> i:=<span class="built_in">len</span>(stack);i&gt;=<span class="number">0</span>;i--&#123;</span><br><span class="line">	temp:=stack[i]</span><br><span class="line">	...</span><br><span class="line">	读出来进行相应操作 </span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">队列</span><br><span class="line"><span class="keyword">var</span> queue []<span class="type">int</span></span><br><span class="line"></span><br><span class="line">入队列</span><br><span class="line">queue=<span class="built_in">append</span>(queue,x)</span><br><span class="line"></span><br><span class="line">出队列</span><br><span class="line"><span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="built_in">len</span>(queue);i++&#123;</span><br><span class="line">	temp:=queue[i]</span><br><span class="line">	...</span><br><span class="line">	读出来进行相应操作 </span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="BFS二叉树层数表示"><a href="#BFS二叉树层数表示" class="headerlink" title="BFS二叉树层数表示"></a>BFS二叉树层数表示</h2><p>可以用上文的队列实现</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">zigzagLevelOrder</span><span class="params">(root *TreeNode)</span></span> [][]<span class="type">int</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> root==<span class="literal">nil</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    ret:=[][]<span class="type">int</span>&#123;&#125;</span><br><span class="line">    queue:=[]*TreeNode&#123;root&#125;</span><br><span class="line">    <span class="comment">//level就是层，巧妙实现了层数表示</span></span><br><span class="line">    <span class="keyword">for</span> level:=<span class="number">0</span>;<span class="built_in">len</span>(queue)&gt;<span class="number">0</span>;level++&#123;</span><br><span class="line">        val:=[]<span class="type">int</span>&#123;&#125;</span><br><span class="line">        q:=queue</span><br><span class="line">        <span class="comment">//这里清空了queue，方便下一层塞入queue</span></span><br><span class="line">        queue=<span class="literal">nil</span></span><br><span class="line">        <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="built_in">len</span>(q);i++&#123;</span><br><span class="line">            val=<span class="built_in">append</span>(val,q[i].Val)</span><br><span class="line">            <span class="keyword">if</span> q[i].Left!=<span class="literal">nil</span>&#123;</span><br><span class="line">                queue=<span class="built_in">append</span>(queue,q[i].Left)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> q[i].Right!=<span class="literal">nil</span>&#123;</span><br><span class="line">                queue=<span class="built_in">append</span>(queue,q[i].Right)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> level%<span class="number">2</span>!=<span class="number">0</span>&#123;</span><br><span class="line">            temp:=[]<span class="type">int</span>&#123;&#125;</span><br><span class="line">            <span class="keyword">for</span> i:=<span class="built_in">len</span>(val)<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--&#123;</span><br><span class="line">                temp=<span class="built_in">append</span>(temp,val[i])</span><br><span class="line">            &#125;</span><br><span class="line">            ret=<span class="built_in">append</span>(ret,temp)</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            ret=<span class="built_in">append</span>(ret,val)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="236-二叉树的最近公共祖先-力扣（LeetCode）"><a href="#236-二叉树的最近公共祖先-力扣（LeetCode）" class="headerlink" title="236. 二叉树的最近公共祖先 - 力扣（LeetCode）"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/description/">236. 二叉树的最近公共祖先 - 力扣（LeetCode）</a></h1><h2 id="二叉树节点的向上寻找"><a href="#二叉树节点的向上寻找" class="headerlink" title="二叉树节点的向上寻找"></a>二叉树节点的向上寻找</h2><p>找公共祖先的时候，需要往上找，但是一直没想到怎么向上移动，这里是个小技巧</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> node!=<span class="literal">nil</span>&#123;</span><br><span class="line">	node=parent[node.val]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="leecode中编译器的区别"><a href="#leecode中编译器的区别" class="headerlink" title="leecode中编译器的区别"></a>leecode中编译器的区别</h2><p>在使用leecode刷题的时候发现，一样的代码放在本地编译器能跑，提交却总有莫名其妙的地方报错，按如下情况修改即可</p>
+<ul>
+<li>想使用c++那样的全局变量<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">在使用leecode时，写的函数读入全局变量会莫名其妙出错导致TLE或者MLE</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">map</span>[<span class="type">int</span>][<span class="type">int</span>]&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">print</span>() <span class="comment">//莫名其妙报错</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">	a[<span class="number">1</span>]=<span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">按如下形式修改即可</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a=<span class="keyword">map</span>[<span class="type">int</span>][<span class="type">int</span>]&#123;&#125;</span><br><span class="line">	<span class="keyword">var</span> <span class="built_in">print</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span></span><br><span class="line">	<span class="built_in">print</span> = <span class="function"><span class="keyword">func</span><span class="params">()</span></span>&#123;</span><br><span class="line">		a[<span class="number">1</span>]=<span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">print</span>()<span class="comment">//这样就没问题了</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+在<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/number-of-islands/description/">200. 岛屿数量 - 力扣（LeetCode）</a>中也出现了这样的错误，修改之后就能成功运行了<br>ps:可苦死我了，还一直以为是我的问题，跟这道题耗了一个下午<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">numIslands</span><span class="params">(grid [][]<span class="type">byte</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> vis [<span class="number">301</span>][<span class="number">301</span>]<span class="type">int</span></span><br><span class="line">    <span class="keyword">var</span> dir = [<span class="number">4</span>][<span class="number">2</span>]<span class="type">int</span>&#123;&#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">-1</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">0</span>&#125;&#125;</span><br><span class="line">    <span class="keyword">var</span> Mx, My <span class="type">int</span></span><br><span class="line">    <span class="keyword">var</span> count =<span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> dfs <span class="function"><span class="keyword">func</span><span class="params">(x,y <span class="type">int</span>,grid [][]<span class="type">byte</span>)</span></span></span><br><span class="line">    Mx = <span class="built_in">len</span>(grid)</span><br><span class="line">    My = <span class="built_in">len</span>(grid[<span class="number">0</span>])</span><br><span class="line">    dfs=<span class="function"><span class="keyword">func</span><span class="params">(x, y <span class="type">int</span>, grid [][]<span class="type">byte</span>)</span></span> &#123;</span><br><span class="line">        vis[x][y] = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">4</span>; i++ &#123;</span><br><span class="line">            nx := x + dir[i][<span class="number">0</span>]</span><br><span class="line">            ny := y + dir[i][<span class="number">1</span>]</span><br><span class="line">            <span class="comment">//判断是否出界</span></span><br><span class="line">            <span class="keyword">if</span> nx &gt;= Mx || nx &lt; <span class="number">0</span> || ny &gt;= My || ny &lt; <span class="number">0</span> &#123;</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//没出就看是不是符合条件的</span></span><br><span class="line">            <span class="keyword">if</span> grid[nx][ny] == <span class="string">&#x27;0&#x27;</span> || vis[nx][ny] == <span class="number">1</span> &#123;</span><br><span class="line">                <span class="comment">//不符合就看下一个</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            &#125;</span><br><span class="line">            dfs(nx, ny, grid)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> Mx==<span class="number">1</span>&amp;&amp;My==<span class="number">1</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> grid[<span class="number">0</span>][<span class="number">0</span>]==<span class="string">&#x27;1&#x27;</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; Mx; i++ &#123;</span><br><span class="line">        <span class="keyword">for</span> j := <span class="number">0</span>; j &lt; My; j++ &#123;</span><br><span class="line">            <span class="keyword">if</span> grid[i][j] == <span class="string">&#x27;1&#x27;</span> &amp;&amp; vis[i][j] == <span class="number">0</span> &#123;</span><br><span class="line">                count+=<span class="number">1</span></span><br><span class="line">                dfs(i, j, grid)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/06/29/go%E7%AE%97%E6%B3%95%E5%B0%8F%E6%8A%84/" data-id="clyfhaq770006148783auhjuq" data-title="go算法小抄" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-TCPIP协议" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/06/25/TCPIP%E5%8D%8F%E8%AE%AE/" class="article-date">
@@ -214,6 +304,176 @@
     </div>
     <footer class="article-footer">
       <a data-url="http://example.com/2024/06/23/%E4%B8%80%E4%BA%9B%E6%83%B3%E8%AF%B4%E7%9A%84%E8%AF%9D/" data-id="clxsf5n7i00027c871hig6559" data-title="一些想说的话" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-C++算法笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/04/07/C++%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time class="dt-published" datetime="2024-04-07T11:30:17.000Z" itemprop="datePublished">2024-04-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/04/07/C++%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">C++算法笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>strlen()在cstring包里</li>
+<li>保留小数位数，用setprecision()，在iomanip包里<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a=<span class="number">3.1415926</span></span><br><span class="line">cout&lt;&lt;fixed&lt;&lt;<span class="built_in">setprecision</span>(<span class="number">2</span>)&lt;&lt;a&lt;&lt;endl;</span><br></pre></td></tr></table></figure></li>
+<li>学习冒泡排序（将大的提到后面），选择排序（选出最小的提到前面），插入排序（类似理牌），希尔排序（分组插入排序，不断缩小间隔），快速排序（以最左侧为基准，小放左，大放右，左右双指针、递归）</li>
+<li>栈（后进先出）、队列（先进先出，类似于GO中的channel）都是受到限制的线性表</li>
+<li>取特定位数，只需要先除后取余<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a=<span class="number">1234</span>;</span><br><span class="line"><span class="type">int</span> 个位=a/<span class="number">1</span>%<span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> 十位=a/<span class="number">10</span>%<span class="number">10</span>;</span><br><span class="line">...</span><br><span class="line"><span class="type">int</span> 千位=a/<span class="number">1000</span>%<span class="number">10</span>;</span><br></pre></td></tr></table></figure></li>
+<li><code>(index + 1) % MAX_SIZE</code> 可来计算队尾索引或队首索引。这样就能够实现队列的循环特性，确保队首和队尾索引在计算时正确地循环到数组的开头位置。</li>
+<li>使用sort需要<code>#include&lt;algorithm&gt;</code>  ,关于其中cmp参数用法可见<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41575507/article/details/105936466">CSDN</a> </li>
+<li>&#x3D;&#x3D;<code>!=</code>&#x3D;&#x3D;的判定时间比&#x3D;&#x3D;<code>==</code>&#x3D;&#x3D;的判定时间短，在大范围循环时多用&#x3D;&#x3D;<code>!=</code>&#x3D;&#x3D;可减少运行时间。</li>
+<li>对于每一次循环都会进行操作的变量，把它放在<code>int main()</code>外面，作全局变量，可大幅减少运行时间。</li>
+<li>辗转相除法求最大公约数<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">gcd</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> y?<span class="built_in">gcd</span>(y,x%y):x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40763929/article/details/81629800">DFS入门</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.dotcpp.com/oj/problem1825.html">穿越雷区（BFS和DFS练习）</a></li>
+<li>DFS类的地图题可以用以下方法表示方向<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> way[<span class="number">4</span>][<span class="number">2</span>]=&#123;&#123;<span class="number">0</span>,<span class="number">1</span>&#125;,&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">0</span>,<span class="number">-1</span>&#125;,&#123;<span class="number">-1</span>,<span class="number">0</span>&#125;&#125;;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">      nx=x+way[i][<span class="number">0</span>];</span><br><span class="line">      ny=y+way[i][<span class="number">1</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//表示四个方向</span></span><br></pre></td></tr></table></figure></li>
+<li>DFS伪代码模板<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(剪枝条件<span class="number">1</span>) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span>(剪枝条件<span class="number">2</span>) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span>(结束条件) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">for</span>()&#123;</span><br><span class="line">		vis[x][y]=<span class="number">1</span>;</span><br><span class="line">		<span class="built_in">dfs</span>();<span class="comment">//往下探索</span></span><br><span class="line">		vis[x][y]=<span class="number">0</span>;<span class="comment">//回溯</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>BFS伪代码模板<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">queue&lt;<span class="type">int</span>&gt; arr</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bfs</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">	arr.<span class="built_in">push</span>(x);</span><br><span class="line">	<span class="type">int</span> y =arr.<span class="built_in">front</span>();</span><br><span class="line">	arr.<span class="built_in">pop</span>();</span><br><span class="line">	<span class="keyword">while</span>(!arr.<span class="built_in">empty</span>())&#123;</span><br><span class="line">		</span><br><span class="line">		对应操作</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>()&#123;</span><br><span class="line">			</span><br><span class="line">			对应操作</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在需要输入空格时，要用<code>gets</code>，不要用cin，否则读不进空格<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">char</span> a[<span class="number">100</span>];</span><br><span class="line">	<span class="built_in">gets</span>(a);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+另外必须引用的包</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;cstring&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>二分查找模板<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">lowerbound</span><span class="params">(<span class="type">int</span> a[],<span class="type">int</span> target)</span></span>&#123; <span class="comment">//找到第一个大于等于target的值</span></span><br><span class="line">    <span class="type">int</span> l=<span class="number">0</span>,r=n<span class="number">-1</span>,mid;</span><br><span class="line">    <span class="keyword">while</span>(l&lt;=r)&#123;</span><br><span class="line">        mid=l+(r-l)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(a[mid]&gt;=target)&#123;</span><br><span class="line">            r=mid<span class="number">-1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a[mid]&lt;target)&#123;</span><br><span class="line">            l=mid+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> l;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">upperbound</span><span class="params">(<span class="type">int</span> a[],<span class="type">int</span> target)</span></span>&#123; <span class="comment">//找到第一个大于target的值 </span></span><br><span class="line">    <span class="type">int</span> l=<span class="number">0</span>,r=n<span class="number">-1</span>,mid;</span><br><span class="line">    <span class="keyword">while</span>(l&lt;=r)&#123;</span><br><span class="line">        mid=l+(r-l)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(a[mid]&lt;=target)&#123;</span><br><span class="line">            l=mid+<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a[mid]&gt;target)&#123;</span><br><span class="line">            r=mid<span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>将十进制用2的幂次方表示<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">stack&lt;<span class="type">int</span>&gt; <span class="title">parse</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    stack&lt;<span class="type">int</span>&gt; temp;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;x&gt;<span class="number">0</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(x&amp;<span class="number">1</span>)temp.<span class="built_in">push</span>(i);</span><br><span class="line">        x&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>Tarjan模板(找强连通分量)<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Tarjan</span><span class="params">(<span class="type">int</span> now)</span> </span>&#123;</span><br><span class="line">    vis[now] = <span class="literal">true</span>; <span class="comment">// 标记为访问过</span></span><br><span class="line">    s.<span class="built_in">push</span>(now); <span class="comment">// 将该点压入栈中 </span></span><br><span class="line">    dfn[now] = low[now] = ++Time; <span class="comment">//记录时间戳</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; graph[now].<span class="built_in">size</span>(); i++) &#123; <span class="comment">// 搜索与该点联通的点 </span></span><br><span class="line">        <span class="type">int</span> To = graph[now][i]; <span class="comment">// 下一个将要访问的点 </span></span><br><span class="line">        <span class="keyword">if</span> (!dfn[To]) &#123; <span class="comment">// 如果没有被搜过 </span></span><br><span class="line">            <span class="built_in">Tarjan</span>(To); <span class="comment">//开始搜索 </span></span><br><span class="line">            low[now] = <span class="built_in">min</span>(low[now], low[To]); <span class="comment">// 回溯更新 low值 </span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (vis[To]) low[now] = <span class="built_in">min</span>(low[now], low[To]); <span class="comment">// 搜过了 直接更新 low </span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (dfn[now] == low[now]) &#123; <span class="comment">// 找到一个强连通块的根 </span></span><br><span class="line">        col[now] = ++sum;  <span class="comment">// 染色 </span></span><br><span class="line">        vis[now] = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123; <span class="comment">//将搜索栈中该点以上的点弹出  他们都是在这个强联通块中 </span></span><br><span class="line">            <span class="type">int</span> x = s.<span class="built_in">top</span>(); s.<span class="built_in">pop</span>();</span><br><span class="line">            col[x] = sum; <span class="comment">// 该强联通块染成第 sum种颜色 </span></span><br><span class="line">            vis[x] = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">if</span> (now == x) <span class="keyword">break</span>; <span class="comment">// 将根弹出后 结束循环 </span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>最长公共子序列(LCS)<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">LCS[i][j] 表示第一个串的前i位，第二个串的前j位的LCS的长度</span><br><span class="line"><span class="comment">//动态规划 时间复杂度为O(n2)</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(p1[i]==p2[j])&#123;</span><br><span class="line">                LCS[i][j]=LCS[i<span class="number">-1</span>][j<span class="number">-1</span>]+<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                LCS[i][j]=<span class="built_in">max</span>(LCS[i<span class="number">-1</span>][j],LCS[i][j<span class="number">-1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//可使用滚动数组优化空间复杂度</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(p1[i]==p2[j])&#123;</span><br><span class="line">            LCS[<span class="number">1</span>][j]=LCS[<span class="number">0</span>][j<span class="number">-1</span>]+<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            LCS[<span class="number">1</span>][j]=<span class="built_in">max</span>(LCS[<span class="number">0</span>][j],LCS[<span class="number">1</span>][j<span class="number">-1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">memcpy</span>(LCS[<span class="number">0</span>],LCS[<span class="number">1</span>],(n+<span class="number">1</span>)*<span class="built_in">sizeof</span>(<span class="type">int</span>));    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>最长回文子序列<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=str.<span class="built_in">size</span>();i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">	dp[i][i]=<span class="number">0</span>;<span class="comment">//dp[i][j]是指从i到j的最长回文子序列长度</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> j=i+<span class="number">1</span>;j&lt;str.<span class="built_in">size</span>();j++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(str[i]==str[j])&#123;</span><br><span class="line">			dp[i][j]=dp[i+<span class="number">1</span>][j<span class="number">-1</span>]+<span class="number">2</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			dp[i][j]=<span class="built_in">max</span>(dp[i][j<span class="number">-1</span>],dp[i+<span class="number">1</span>][j]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>组合数<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">C</span><span class="params">(<span class="type">long</span> <span class="type">long</span> n,<span class="type">long</span> <span class="type">long</span> m)</span></span>&#123; </span><br><span class="line">	<span class="keyword">if</span>(m==<span class="number">0</span> || m == n) <span class="keyword">return</span> <span class="number">1</span>; </span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">C</span>(n<span class="number">-1</span>,m)+<span class="built_in">C</span>(n<span class="number">-1</span>,m<span class="number">-1</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>排列数<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">A</span><span class="params">(<span class="type">long</span> <span class="type">long</span> n, <span class="type">long</span> <span class="type">long</span> m)</span></span>&#123;</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> res = <span class="number">1</span>; </span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = m; i &gt;= <span class="number">1</span>; i--)&#123; </span><br><span class="line">		res *= n; </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>卡特兰数<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">C</span>(n,<span class="number">2</span>n)-<span class="built_in">C</span>(n<span class="number">-1</span>,<span class="number">2</span>n) 即 合法路径=总路径-非法路径</span><br></pre></td></tr></table></figure></li>
+<li>素数筛<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//朴素做法</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">isPrime</span><span class="params">(<span class="type">int</span> num)</span></span>&#123;</span><br><span class="line">	 <span class="keyword">if</span>(num==<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">if</span>(num==<span class="number">2</span>||num==<span class="number">3</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">     <span class="keyword">if</span>(num%<span class="number">6</span>!=<span class="number">1</span>&amp;&amp;num%<span class="number">6</span>!=<span class="number">5</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">     <span class="type">int</span> temp=<span class="built_in">sqrt</span>(num);</span><br><span class="line">     <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">5</span>;i&lt;=temp;i+=<span class="number">6</span>)</span><br><span class="line">        <span class="keyword">if</span>(num%i==<span class="number">0</span>||num%(i+<span class="number">2</span>)==<span class="number">0</span>)</span><br><span class="line">           <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//欧拉筛</span></span><br><span class="line"><span class="type">bool</span> isprime[MAXN]; <span class="comment">// isprime[i]表示i是不是素数</span></span><br><span class="line"><span class="type">int</span> prime[MAXN]; <span class="comment">// 现在已经筛出的素数列表</span></span><br><span class="line"><span class="type">int</span> n; <span class="comment">// 上限，即筛出&lt;=n的素数</span></span><br><span class="line"><span class="type">int</span> cnt; <span class="comment">// 已经筛出的素数个数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">euler</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(isprime, <span class="literal">true</span>, <span class="built_in">sizeof</span>(isprime)); <span class="comment">// 先全部标记为素数</span></span><br><span class="line">    isprime[<span class="number">1</span>] = <span class="literal">false</span>; <span class="comment">// 1不是素数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; ++i) <span class="comment">// i从2循环到n（外层循环）</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(isprime[i]) prime[++cnt] = i;</span><br><span class="line">        <span class="comment">// 如果i没有被前面的数筛掉，则i是素数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt;= cnt &amp;&amp; i * prime[j] &lt;= n; ++j)</span><br><span class="line">        <span class="comment">// 筛掉i的素数倍，即i的prime[j]倍</span></span><br><span class="line">        <span class="comment">// j循环枚举现在已经筛出的素数（内层循环）</span></span><br><span class="line">        &#123;</span><br><span class="line">            isprime[i * prime[j]] = <span class="literal">false</span>;</span><br><span class="line">            <span class="comment">// 倍数标记为合数，也就是i用prime[j]把i * prime[j]筛掉了</span></span><br><span class="line">            <span class="keyword">if</span>(i % prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            <span class="comment">// 最神奇的一句话，如果i整除prime[j]，退出循环</span></span><br><span class="line">            <span class="comment">// 这样可以保证线性的时间复杂度</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>二叉树前中后遍历<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 前序遍历 */</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">preOrder</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">nullptr</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// 访问优先级：根节点 -&gt; 左子树 -&gt; 右子树</span></span><br><span class="line">    vec.<span class="built_in">push_back</span>(root-&gt;val);</span><br><span class="line">    <span class="built_in">preOrder</span>(root-&gt;left);</span><br><span class="line">    <span class="built_in">preOrder</span>(root-&gt;right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 中序遍历 */</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">inOrder</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">nullptr</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// 访问优先级：左子树 -&gt; 根节点 -&gt; 右子树</span></span><br><span class="line">    <span class="built_in">inOrder</span>(root-&gt;left);</span><br><span class="line">    vec.<span class="built_in">push_back</span>(root-&gt;val);</span><br><span class="line">    <span class="built_in">inOrder</span>(root-&gt;right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 后序遍历 */</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">postOrder</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">nullptr</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// 访问优先级：左子树 -&gt; 右子树 -&gt; 根节点</span></span><br><span class="line">    <span class="built_in">postOrder</span>(root-&gt;left);</span><br><span class="line">    <span class="built_in">postOrder</span>(root-&gt;right);</span><br><span class="line">    vec.<span class="built_in">push_back</span>(root-&gt;val);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>根据前序中序遍历 构造二叉树并 后序遍历输出<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">unordered_map&lt;<span class="type">int</span>,<span class="type">int</span>&gt; Hash;</span><br><span class="line">string pre,in;</span><br><span class="line"><span class="type">int</span> length;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">    <span class="type">char</span> val;</span><br><span class="line">    node* left;</span><br><span class="line">    node* right;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">node* <span class="title">build</span><span class="params">(<span class="type">int</span> root,<span class="type">int</span> l,<span class="type">int</span> r)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(r-l&lt;<span class="number">0</span>)<span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    node* rt=<span class="keyword">new</span> node;</span><br><span class="line">    rt-&gt;val=pre[root];</span><br><span class="line">    <span class="type">int</span> m=Hash[root];</span><br><span class="line">    rt-&gt;left =<span class="built_in">build</span>(root+<span class="number">1</span>     ,l   ,m<span class="number">-1</span>);</span><br><span class="line">    rt-&gt;right=<span class="built_in">build</span>(root+<span class="number">1</span>+m-l ,m+<span class="number">1</span> ,r  );</span><br><span class="line">    <span class="keyword">return</span> rt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">node* <span class="title">buildTree</span><span class="params">()</span></span>&#123;</span><br><span class="line">    node* TreeRoot=<span class="keyword">new</span> node;</span><br><span class="line">    TreeRoot=<span class="built_in">build</span>(<span class="number">0</span>,<span class="number">0</span>,length<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">BackOrder</span><span class="params">(node* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="literal">nullptr</span>)<span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">BackOrder</span>(root-&gt;left);</span><br><span class="line">    <span class="built_in">BackOrder</span>(root-&gt;right);</span><br><span class="line">    cout&lt;&lt;root-&gt;val;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin&gt;&gt;pre&gt;&gt;in;</span><br><span class="line">    length=pre.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;length;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;length;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(pre[i]==in[j])&#123;</span><br><span class="line">                Hash[i]=j;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="comment">//build hash</span></span><br><span class="line">    node* ROOT=<span class="built_in">buildTree</span>();</span><br><span class="line">    <span class="built_in">BackOrder</span>(ROOT);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/04/07/C++%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/" data-id="clyfhaq4q00001487591p91dd" data-title="C++算法笔记" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Web业务项目基本目录结构" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/02/08/Web%E4%B8%9A%E5%8A%A1%E9%A1%B9%E7%9B%AE%E5%9F%BA%E6%9C%AC%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/" class="article-date">
+  <time class="dt-published" datetime="2024-02-08T12:16:26.000Z" itemprop="datePublished">2024-02-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/02/08/Web%E4%B8%9A%E5%8A%A1%E9%A1%B9%E7%9B%AE%E5%9F%BA%E6%9C%AC%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">Web业务项目基本目录结构</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <pre><code>├── app ----------------------------- (项目文件)
+    ├── api ------------------------- (对外接口)
+    ├── global ---------------------- (全局组件对象)
+    ├── internal -------------------- (内部逻辑)
+        ├── middleware -------------- (中间件)
+        ├── model ------------------- (模型层)
+        ├── service ----------------- (服务层)
+    ├── router ---------------------- (路由层)
+├── manifest ------------------------ (交付清单)
+   ├── deploy ----------------------- (部署配置文件)
+      ├── docker -------------------- (docker配置文件)
+      ├── kustomize ----------------- (k8s配置文件)
+   ├── sql -------------------------- (mysql初始化配置文件)
+├── utils/tools --------------------------- (工具包) 
+├── build.sh ------------------------ (应用运行脚本)
+├── docker-compolse.yml ------------- (容器构建配置)
+├── go.mod -------------------------- (go依赖)
+├── main.go ------------------------- (项目运行入口)
+├── README.md ----------------------- (项目说明文档)
+</code></pre>
+<h4 id="对外接口-api"><a href="#对外接口-api" class="headerlink" title="对外接口 (api)"></a>对外接口 (api)</h4><p>服务接口的职责类似于三层架构设计中的<code>UI</code>表示层，负责接收并响应客户端的输入与输出，包括对输入参数的过滤、转换、校验，对输出数据结构的维护，并调用 <code>service</code> 实现业务逻辑处理。</p>
+<h4 id="业务实现-service"><a href="#业务实现-service" class="headerlink" title="业务实现 (service)"></a>业务实现 (service)</h4><p>业务实现的职责类似于三层架构设计中的<code>BLL</code>业务逻辑层，负责具体业务逻辑的实现以及封装。</p>
+<p>一是用于解耦业务模块之间的调用。</p>
+<p>二是负责具体业务逻辑的实现以及封装。</p>
+<h4 id="结构模型-model"><a href="#结构模型-model" class="headerlink" title="结构模型 (model)"></a>结构模型 (model)</h4><p><code>model</code>包的职责类似于三层架构中的<code>Model</code>模型定义层。模型定义代码层中仅包含全局公开的数据结构定义，往往不包含方法定义。</p>
+<p>这里需要注意的是，这里的<code>model</code>不仅负责维护数据实体对象（<code>entity</code>）结构定义，也包括所有的输入&#x2F;输出数据结构定义，被<code>service</code>共同引用。这样做的好处除了可以统一管理公开的数据结构定义，也可以充分对同一业务领域的数据结构进行复用，减少代码冗余。</p>
+<p>▐ 数据模型 - <code>entity</code></p>
+<p>与数据集合绑定的程序数据结构定义，通常和数据表一一对应。</p>
+<p>▐ 业务模型 - <code>model</code></p>
+<p>与业务相关的通用数据结构定义，其中包含大部分的方法输入输出定义。</p>
+<p>▐ 数据访问 - <code>dao</code></p>
+<p><code>dao</code>的职责类似于三层架构中的<code>DAL</code>数据访问层，数据访问层负责所有的数据访问收口。</p>
+<p>▐ <strong>cmd</strong></p>
+<p><code>cmd</code>层负责<strong>引导程序启动</strong>，显著的工作是初始化逻辑、注册路由对象、启动<code>server</code>监听、阻塞运行程序直至<code>server</code>退出。</p>
+<p>▐ <strong>api</strong></p>
+<p>上层<code>server</code>服务<strong>接收客户端请求</strong>，转换为<code>api</code>中定义的<code>Req</code>接收对象、执行请求参数到<code>Req</code>对象属性的类型转换、执行<code>Req</code>对象中绑定的基础校验并转交<code>Req</code>请求对象给<code>controller</code>层。</p>
+<p>▐ <strong>controller</strong></p>
+<p><code>controller</code>层负责接收<code>Req</code>请求对象后<strong>做一些业务逻辑校验</strong>，随后调用一个或多个<code>service</code>实现业务逻辑，将执行结构封装为约定的<code>Res</code>数据结构对象返回。</p>
+<p>▐ <strong>model</strong></p>
+<p><code>model</code>层中<strong>管理所有的业务模型</strong>，<code>service</code>资源的<code>Input/Output</code>输入输出数据结构都由<code>model</code>层来维护。</p>
+<p>▐ <strong>service</strong></p>
+<p><code>service</code>是接口层，用于<strong>解耦业务模块</strong>，<code>service</code>没有具体的业务逻辑实现，具体的业务实现是依靠<code>logic</code>层注入的。</p>
+<p>▐ <strong>logic</strong></p>
+<p><code>logic</code>层的<strong>业务逻辑需要通过调用<code>dao</code>来实现数据的操作</strong>，调用<code>dao</code>时需要传递<code>do</code>数据结构对象，用于传递查询条件、输入数据。<code>dao</code>执行完毕后通过<code>Entity</code>数据模型将数据结果返回给<code>service</code>层。</p>
+<p>▐ <strong>dao</strong></p>
+<p><code>dao</code>层通过框架的<code>ORM</code>抽象层组件与底层真实的数据库交互</p>
+<p><strong>如何清晰界定和管理<code>service</code>和<code>controller</code>的分层职责</strong></p>
+<p><code>controller</code>层处理<code>Req/Res</code>外部接口请求。负责接收、校验请求参数，并调用<strong>一个或多个</strong> <code>service</code>来实现业务逻辑处理，根据返回数据结构组装数据再返回。<code>service</code>层处理<code>Input/Output</code>内部方法调用。负责内部<strong>可复用</strong>的业务逻辑封装，封装的方法粒度往往比较细。</p>
+<p>在真实项目实践中，存在从<code>controller</code>层直接透传<code>Req</code>对象给<code>service</code>，同时<code>service</code>直接返回<code>Res</code>数据结构对象的情况。但当使用<code>service</code>方法处理特定的<code>Req</code>对象时，该方法也就与对于的外部接口耦合，仅为外部接口服务，难以复用。这样做会有一定的技术债务成本，具体成本需要自行具体衡量把握尺度。</p>
+<p><strong>如何清晰界定和管理<code>service</code>和<code>dao</code>的分层职责</strong></p>
+<p>这是一个很经典的问题。</p>
+<p><strong>痛点：</strong></p>
+<p>常见的，开发者把数据相关的业务逻辑实现封装到了<code>dao</code>代码层中，而<code>service</code>代码层只是简单的<code>dao</code>调用，这么做的话会使得原本负责维护数据的<code>dao</code>层代码越来越繁重，反而业务逻辑<code>service</code>层代码显得比较轻。开发者存在困惑，我写的业务逻辑代码到底应该放到<code>dao</code>还是<code>service</code>中？</p>
+<p>业务逻辑其实绝大部分时候都是对数据的<code>CURD</code>处理，这样做会使得几乎所有的业务逻辑会逐步沉淀在<code>dao</code>层中，业务逻辑的改变其实会频繁对<code>dao</code>层的代码产生修改。例如：数据查询在初期的时候可能只是简单的逻辑，目前代码放到<code>dao</code>好像也没问题，但是查询需求增加或变化变得复杂之后，那么必定会继续维护修改原有的<code>dao</code>代码，同时<code>service</code>代码也可能同时做更新。原本仅限于<code>service</code>层的业务逻辑代码职责与<code>dao</code>层代码职责模糊不清、耦合较重，原本只需要修改<code>service</code>代码的需求变成了同时修改<code>service</code>+<code>dao</code>，使得项目中后期的开发维护成本大大增加。</p>
+<p><strong>建议：</strong></p>
+<p>我们的建议。<code>dao</code>层的代码应该尽量保证通用性，并且大部分场景下不需要增加额外方法，只需要使用一些通用的链式操作方法拼凑即可满足。业务逻辑、包括看似只是简单的数据操作的逻辑都应当封装到<code>service</code>中，<code>service</code>中包含多个业务模块，每个模块独自管理自己的<code>dao</code>对象，<code>service</code>与<code>service</code>之间通过相互调用方法来实现数据通信而不是随意去调用其他<code>service</code>模块的<code>dao</code>对象。</p>
+<p><strong>为什么要使用<code>internal</code>目录包含业务代码</strong></p>
+<p><code>internal</code>目录是<code>Golang</code>语言专有的特性，<strong>防止同级目录外的其他目录引用其下面的内容</strong>。业务项目中存在该目录的目的，是避免若项目中存在多个子项目（特别是大仓管理模式时），多个项目之间无限制随意访问，造成难以避免的多项目不同包之间耦合。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>每个公司、组织内部都有自己的组织方式，但每个项目都应该有一定的规范。虽然这种规范的约定没有那么强制，但是只要达成了一致之后，对于团队中组员快速理解和入门项目都是很有帮助的。有时候<strong>一些规范，就是团队的共同语言，定好了规范，减少了不必要的重复沟通，有利于提高整体的效率</strong>。</p>
+<p>项目目录也一样，本篇文章讲的是参考 <a target="_blank" rel="noopener" href="https://github.com/golang-standards/project-layout">golang-standards</a> 提供的规范。但是，<strong>最重要的还是要与自己的团队商量，讨论并整理出适合自己的一套项目目录规范</strong>。</p>
+<p><strong>一致的项目目录规范，有助于组员快速理解其他人的代码，不容易造成团队的”单点故障“；团队团结一致，共同维护和升级项目目录结构，可不断沉淀，不断提高效率，减少犯错</strong>。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/02/08/Web%E4%B8%9A%E5%8A%A1%E9%A1%B9%E7%9B%AE%E5%9F%BA%E6%9C%AC%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/" data-id="clyfhaq770005148784ob24g6" data-title="Web业务项目基本目录结构" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -427,7 +687,612 @@ cause是错误原因，然后这个函数调用新创建的cancelCtx的cancel方
 
 
   
+    <article id="post-Git合作开发" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/08/10/Git%E5%90%88%E4%BD%9C%E5%BC%80%E5%8F%91/" class="article-date">
+  <time class="dt-published" datetime="2023-08-10T05:05:31.000Z" itemprop="datePublished">2023-08-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/08/10/Git%E5%90%88%E4%BD%9C%E5%BC%80%E5%8F%91/">Git合作开发</a>
+    </h1>
+  
 
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><h3 id="分支的概念"><a href="#分支的概念" class="headerlink" title="分支的概念"></a>分支的概念</h3><p>用一个通俗的理解就是科幻电影里面的平行宇宙，当你正在电脑前努力学习Git的时候，另一个你正在另一个平行宇宙里努力学习SVN。如果两个平行宇宙互不干扰，那对现在的你也没啥影响。不过，在某个时间点，两个平行宇宙合并了，结果，你既学会了Git又学会了SVN！</p>
+<p>分支在实际开发中的作用：在进行多人协作开发的时候，为了防止互相干扰，提高协同开发的体验，建议每个开发者都基于分支进行项目功能的开发，到最后再合并分支，就可以达到很好的结果。</p>
+<h3 id="master-主分支"><a href="#master-主分支" class="headerlink" title="master 主分支"></a>master 主分支</h3><p>在初始化本地 Git 仓库的时候，Git 默认已经帮我们创建了一个名字叫做 master （也有叫main） 的分支。通常我们把这个master 分支叫做主分支。</p>
+<p>在实际工作中，master （也有叫main）主分支的作用是：用来保存和记录整个项目已完成的功能代码。因此，不允许程序员直接在 master 分支上修改代码，因为这样做的风险太高，容易导致整个项目崩溃。</p>
+<h3 id="功能分支"><a href="#功能分支" class="headerlink" title="功能分支"></a>功能分支</h3><p>由于程序员不能直接在 master 分支上进行功能的开发，所以就有了功能分支的概念。功能分支指的是专门用来开发新功能的分支，它是临时从 master 主分支上分叉出来的，当新功能开发且测试完毕后，最终需要合并到 master 主分支上。</p>
+<p>上面介绍了分支的一些概念之后，下面就开始进入本地分支操作</p>
+<h2 id="分支的操作"><a href="#分支的操作" class="headerlink" title="分支的操作"></a>分支的操作</h2><h3 id="查看分支列表"><a href="#查看分支列表" class="headerlink" title="查看分支列表"></a>查看分支列表</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
+
+<p>注意：分支名字前面的 * 号表示当前所处的分支。</p>
+<h3 id="创建新分支"><a href="#创建新分支" class="headerlink" title="创建新分支"></a>创建新分支</h3><p>使用如下的命令，可以基于当前分支，创建一个新的分支，此时，新分支中的代码和当前分支完全一样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch 新分支的名字</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h3><p>使用如下的命令，可以切换到指定的分支上进行开发：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout 分支名字</span><br></pre></td></tr></table></figure>
+
+<p>注意到前面的 * 号已经改变位置</p>
+<h3 id="分支的快速创建和切换"><a href="#分支的快速创建和切换" class="headerlink" title="分支的快速创建和切换"></a>分支的快速创建和切换</h3><p>如果我们输入命令创建了一个分支之后，又要输入一个切换分支的命令，就很麻烦，所以使用如下的命令，可以创建指定名称的新分支，并立即切换到新分支上：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b 分支名字</span><br></pre></td></tr></table></figure>
+
+<p>PS：<br>“git checkout -b 分支名称” 是下面两条命令的简写形式：</p>
+<ul>
+<li>git branch 分支名称</li>
+<li>git checkout 分支名</li>
+</ul>
+<h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><p>功能分支的代码开发测试完毕之后，可以使用如下的命令，将完成后的代码合并到 master 主分支上：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//假如在C分支</span><br><span class="line">//先切换到A分支</span><br><span class="line">git checkout A</span><br><span class="line">//此时在A分支，合并A，C分支</span><br><span class="line">git merge C</span><br></pre></td></tr></table></figure>
+
+<p>合并分支时的注意点：假设要把 C 分支的代码合并到 A 分支，则必须先切换到 A 分支上，再运行 git merge 命令，来合并 C 分支！</p>
+<h3 id="遇到冲突时的分支合并"><a href="#遇到冲突时的分支合并" class="headerlink" title="遇到冲突时的分支合并"></a>遇到冲突时的分支合并</h3><p>如果在两个不同的分支中，对同一个文件进行了不同的修改，Git 就没法干净的合并它们。 此时，我们需要打开这些包含冲突的文件然后手动解决冲突。</p>
+<p>举个栗子，我们再master分支上修改了test_01.txt文件，写入了一段文字，并提交</p>
+<p>我们再切换到另一个分支也写一段文字，也提交</p>
+<p>最后回到master分支上，去合并test分支，发现有提示冲突</p>
+<p>且直接打开文件什么都看不到</p>
+<p>我用vscode打开发现两端不同颜色的字体，其实就是不同分支写入的东西，需要我们认为去解决，看到上面有四个选项可以自己点击，如果点错了可以ctrl+z撤回再选。选完之后保存，然后跟踪提交再合并就不会有冲突了。</p>
+<h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><p>当把功能分支的代码合并到 master 主分支上以后，就可以使用如下的命令，删除对应的功能分支：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//删除分支</span><br><span class="line">git branch -d xxx</span><br></pre></td></tr></table></figure>
+
+
+<p>注意，删除分支不能在该分支上删除该分支，就好比自己在一艘船上要把船弄沉这一道理。所以要去到其他分支再去删除</p>
+<h2 id="远程分支操作"><a href="#远程分支操作" class="headerlink" title="远程分支操作"></a>远程分支操作</h2><h3 id="将本地分支推送到远程仓库"><a href="#将本地分支推送到远程仓库" class="headerlink" title="将本地分支推送到远程仓库"></a>将本地分支推送到远程仓库</h3><p>如果是第一次将本地分支推送到远程仓库，需要运行如下的命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// -u 表示把本地分支和远程分支进行关联，只在第一次推送的时候需要带 -u 参数</span><br><span class="line">git push -u 远程仓库的别名 本地分支名称: 远程分支名称</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//案例</span><br><span class="line">git push -u origin payment:pay</span><br><span class="line"></span><br><span class="line">//如果希望远程分支的名称和本地分支名称保持一直，可以对命令进行简化：</span><br><span class="line">git push -u origin payment</span><br></pre></td></tr></table></figure>
+
+<p>注意：第一次推送分支需要带 -u 参数，此后可以直接使用 git push 推送代码到远程分支</p>
+<h3 id="查看远程仓库中所有的分支列表"><a href="#查看远程仓库中所有的分支列表" class="headerlink" title="查看远程仓库中所有的分支列表"></a>查看远程仓库中所有的分支列表</h3><p>通过如下的命令，可以查看远程仓库中，所有的分支列表的信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote show 远程仓库名称</span><br></pre></td></tr></table></figure>
+<h3 id="跟踪分支"><a href="#跟踪分支" class="headerlink" title="跟踪分支"></a>跟踪分支</h3><p>跟踪分支指的是：从远程仓库中，把远程分支下载到本地仓库中。需要运行的命令如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 从远程仓库中，把对应的远程分支下载到本地仓库，名字保持一致</span><br><span class="line">git checkout 远程分支的名称</span><br><span class="line"></span><br><span class="line">//从远程仓库中，把对应的远程分支下载到本地仓库，并把下载的本地分支进行重命名</span><br><span class="line">git checkout -b 本地分支名称 远程仓库名称/远程分支名称</span><br><span class="line"></span><br><span class="line">//案例  把远程仓库origin里面的pay分支下载并重命名为payment分支</span><br><span class="line">git checkout -b payment origin/pay</span><br></pre></td></tr></table></figure>
+
+<h3 id="拉取远程分支的最新的代码"><a href="#拉取远程分支的最新的代码" class="headerlink" title="拉取远程分支的最新的代码"></a>拉取远程分支的最新的代码</h3><p>可以使用如下的命令，把远程分支最新的代码下载到本地对应的分支中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//从远程仓库，拉区当前分支的最新代码，保持当前分支的代码和远程分支的代码一致</span><br><span class="line">git pull </span><br></pre></td></tr></table></figure>
+
+<h3 id="删除远程分支"><a href="#删除远程分支" class="headerlink" title="删除远程分支"></a>删除远程分支</h3><p>可以使用如下的命令，删除远程仓库中指定的分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git push 远程仓库名称 --delete 远程分支名称</span><br><span class="line">//案例</span><br><span class="line">git push origin--delete pay</span><br></pre></td></tr></table></figure>
+
+<h2 id="同步项目"><a href="#同步项目" class="headerlink" title="同步项目"></a>同步项目</h2><p>Github 我们经常会通过 fork 开源项目在自己的仓库中更新，然后提交 Pull Request (Merge Request) 为开源项目做贡献。</p>
+<p>不过我们经常会遇到原仓库更新，重新 fork 显然是不优雅的，那我我们该怎么同步更新呢？</p>
+<p><img src="https://pic4.zhimg.com/80/v2-7f0a77dd7d7a47761846668fe061c70b_720w.webp"></p>
+<h2 id="如何在-Github-网页端同步更新？"><a href="#如何在-Github-网页端同步更新？" class="headerlink" title="如何在 Github 网页端同步更新？"></a>如何在 Github 网页端同步更新？</h2><ol>
+<li>进入你自己的 fork 过来的仓库。</li>
+<li>点击 “Pull requests” ，如何点击右侧绿色的 “New pull request”。</li>
+<li>Github 首先会比较源仓库与你 fork 后的仓库，如果你没有做任何更改，则找不到要 PR 的内容。所以，我们需要点击 “switching the base”，会将我们的仓库作为基础版本，原仓库作为 head 版本，现在我们会看到我们的需要需要 “catch up” 的更新。</li>
+<li>点击 “Create pull request”，起一个名字，然后点击 “Create pull request”。</li>
+<li>点击 “Merge pull request”，然后点击 “Confirm merge”。</li>
+<li>如果我们没提交什么新代码，merge 过程将自动完成。</li>
+</ol>
+<h2 id="如何通过本地命令行同步更新？"><a href="#如何通过本地命令行同步更新？" class="headerlink" title="如何通过本地命令行同步更新？"></a>如何通过本地命令行同步更新？</h2><ol>
+<li>验证远程分支可以 fetch 或 push</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>指明我们需要同步的仓库</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add upstream https://github.com/OriginalRepo/OriginalProject.git</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>验证</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>拉取更新的 branches 和 commits</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch upstream</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>Checkout 本地分支</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>合并</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge upstream/master</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>提交</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/08/10/Git%E5%90%88%E4%BD%9C%E5%BC%80%E5%8F%91/" data-id="clyfhaq4t00011487fgjnbxn5" data-title="Git合作开发" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Redis笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/08/07/Redis%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time class="dt-published" datetime="2023-08-07T13:59:56.000Z" itemprop="datePublished">2023-08-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/08/07/Redis%E7%AC%94%E8%AE%B0/">Redis笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="redis常用命令"><a href="#redis常用命令" class="headerlink" title="redis常用命令"></a>redis常用命令</h2><p><code>auth [username] password</code>  默认用户是<code>default</code></p>
+<p><code>dbsize</code> 查看数据库key数量、</p>
+<p><code>select index</code> 选择数据库，默认是0(即<code>select 0</code>)</p>
+<p><code>help @基本数据类型</code> 查看命令</p>
+<p><code>flushall</code> 删除所有key</p>
+<p><code>keys *</code> 查看所有key</p>
+<p><code>exit</code> or <code>quit</code> 退出命令行</p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>String 是最基本的 key-value 结构，key 是唯一标识，value 是具体的值，value其实不仅是字符串， 也可以是数字（整数或浮点数），value 最多可以容纳的数据长度是 <code>512M</code>。</p>
+<p><strong>底层实现：</strong>String 类型的底层的数据结构实现主要是 int 和 SDS（简单动态字符串）。</p>
+<h4 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h4><h5 id="SET"><a href="#SET" class="headerlink" title="SET"></a>SET</h5><p>语法 (不强制大小写)</p>
+<p><code>SET key value [EX seconds|PX milliseconds|EXAT timestamp|PXAT milliseconds-timestamp|KEEPTTL] [NX|XX] [GET]</code></p>
+<p><strong>EX</strong>:表明过期时间，单位是秒 和 <strong>setex</strong> 相同</p>
+<p><strong>PX</strong>:单位毫秒</p>
+<p><strong>EXAT</strong>:设置时间到某个时间戳（秒级）</p>
+<p><strong>PXAT</strong>:设置时间到某个时间戳（毫秒级）</p>
+<p><strong>NX</strong> ：当键k不存在时，设置键；设置成功返回ok，不成功时返回nil；和<strong>SETNX</strong>等价</p>
+<p><strong>XX</strong>： 与NX相反只在键已经存在时， 才对键进行设置操作</p>
+<p><strong>GET</strong>: 返回之前设的值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SET wx 666</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; GET wx</span><br><span class="line">&quot;666&quot;</span><br><span class="line">127.0.0.1:6379&gt; TTL wx</span><br><span class="line">(integer) -1</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>ttl</strong> 查看Key的过期时间(ms) -1是永久 -2是不存在或着已过期</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SET wx 666  EX 666</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; TTL wx</span><br><span class="line">(integer) 662</span><br><span class="line">127.0.0.1:6379&gt; SET wx 666 EXAT 1668931126576</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; TTL wx</span><br><span class="line">(integer) 1667262367568</span><br><span class="line">127.0.0.1:6379&gt; SET wx 666 PXAT 1668931126576</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
+<p><strong>XX与NX选项</strong>: NX当键k不存在时，设置键 ; XX则在这个k存在时设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SET wx 999  NX</span><br><span class="line">(nil)</span><br><span class="line">127.0.0.1:6379&gt; SET yxh 999 NX</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; GET yxh</span><br><span class="line">&quot;999&quot;</span><br><span class="line">127.0.0.1:6379&gt; GET wx</span><br><span class="line">&quot;666&quot;</span><br><span class="line">127.0.0.1:6379&gt; SET wx 999 XX</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; GET wx</span><br><span class="line">&quot;999&quot;</span><br></pre></td></tr></table></figure>
+
+<p>GET 会返回之前的value 如果key不存在SET不会失败</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SET yxh 999</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; SET yxh 1 GET</span><br><span class="line">&quot;999&quot;</span><br><span class="line">127.0.0.1:6379&gt; SET lmj 1 GET</span><br><span class="line">(nil)  </span><br><span class="line">127.0.0.1:6379&gt; GET lmj</span><br><span class="line">&quot;1&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="SETEX"><a href="#SETEX" class="headerlink" title="SETEX"></a>SETEX</h5><p>语法: <code>setex key seconds value</code></p>
+<p>和 set key value ex 一样</p>
+<p>PSETEX</p>
+<p>语法：<code>psetex key milliseconds value</code></p>
+<p>和 set key value px 一样</p>
+<p>MSET</p>
+<p>语法： <code>MSET key value [key value ...]</code></p>
+<p>同时设置多个键值对 返回OK</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; MSET wx  1 lmj 2</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
+<p>MGET</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; MGET wx  lmj</span><br><span class="line">1) &quot;1&quot;</span><br><span class="line">2) &quot;2&quot;</span><br></pre></td></tr></table></figure>
+
+<p>MSETNX</p>
+<p>语法：<code>msetnx key value [key value ...]</code></p>
+<p>msetnx a 1 b 2 c 3 批量设置键值对，当所有key都不存在时返回1，否则返回0</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; msetnx a 1 b 2 c 3</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; msetnx a 1 b 2 c 3</span><br><span class="line">(integer) 0</span><br></pre></td></tr></table></figure>
+
+<h5 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h5><p>语法：<code>GET key</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; GET lmj</span><br><span class="line">&quot;1&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="GETEX"><a href="#GETEX" class="headerlink" title="GETEX"></a>GETEX</h5><p>语法：<code>GETEX key [EX seconds|PX milliseconds|EXAT timestamp|PXAT milliseconds-timestamp|PERSIST]</code></p>
+<ul>
+<li>用于获取k的值，并设置或者移除过期时间，参数类似于set</li>
+<li>EX,PX,EXAT,PXAT 和set的相同</li>
+<li>PERSIST移除k的过期时间</li>
+</ul>
+<p>相当于或值并且重新设置过期时间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; GETEX lmj EX 1</span><br><span class="line">&quot;2&quot;</span><br><span class="line">127.0.0.1:6379&gt; GET lmj</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
+
+<p>GETSET</p>
+<p>语法 <code>getset key value</code></p>
+<p>和 set key value get 相同</p>
+<p>GETRANGE</p>
+<p>语法：<code>getrange key start end</code></p>
+<p>截取字符串 下标从0开始</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; getrange lanshan 0 2</span><br><span class="line">&quot;lan&quot;</span><br></pre></td></tr></table></figure>
+
+<p>SETRANGE</p>
+<p>语法： <code>setrange key offset value</code></p>
+<p>setrange 用value从偏移量（offset）开始(包括offset)，覆盖key的值</p>
+<p>如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set key abc</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; setrange key 2 def</span><br><span class="line">(integer) 5</span><br><span class="line">127.0.0.1:6379&gt; get key</span><br><span class="line">&quot;abdef&quot;</span><br></pre></td></tr></table></figure>
+
+<p>STRLEN</p>
+<p>语法 <code>strlen key</code></p>
+<p>strlen key 返回键key存储的值的长度，<strong>不存在的k返回0</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; strlen lmj</span><br><span class="line">(integer) 3</span><br></pre></td></tr></table></figure>
+
+<p>INCR</p>
+<p>语法<code>incr key</code></p>
+<p>incr 对key的值加1，并返回加1后的结果；如果k的值是字符串，无法加1，则提示错误</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set k 1</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; incr k</span><br><span class="line">(integer) 2</span><br><span class="line">127.0.0.1:6379&gt; set k wx</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; incr k</span><br><span class="line">(error) ERR value is not an integer or out of range</span><br></pre></td></tr></table></figure>
+
+<p>INCRBY</p>
+<p>语法 <code>incrby key increment</code></p>
+<p>类似 INCR 只不过可以设置任意数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; get k</span><br><span class="line">&quot;8&quot;</span><br><span class="line">127.0.0.1:6379&gt; incrby k  2</span><br><span class="line">(integer) 10</span><br></pre></td></tr></table></figure>
+
+<p>INCRBYFLOAT</p>
+<p>语法：<code>incrbyfloat key increment</code></p>
+<p>增加浮点值或者加整型值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; get k</span><br><span class="line">&quot;0.3&quot;</span><br><span class="line">127.0.0.1:6379&gt; incrbyfloat k 0.2</span><br><span class="line">&quot;0.5&quot;</span><br><span class="line">127.0.0.1:6379&gt; incrbyfloat k 1</span><br><span class="line">&quot;1.5&quot;</span><br></pre></td></tr></table></figure>
+
+<p>DECR</p>
+<p>语法 <code>decr key</code></p>
+<p>值减一 类似incr</p>
+<p>DECRBY</p>
+<p>语法 : <code>decrby key decrement</code></p>
+<p>自定义减值 类似incrby</p>
+<p>APPEND</p>
+<p>语法 <code>append key value</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set k 12</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; append k 345</span><br><span class="line">(integer) 5</span><br><span class="line">127.0.0.1:6379&gt; get k</span><br><span class="line">&quot;12345&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>DEL</strong></p>
+<p>语法 <code>del key</code> 删除值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; del k</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; get k</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
+
+<p>应用场景</p>
+<p>缓存对象</p>
+<p>使用 String 来缓存对象有两种方式：</p>
+<ul>
+<li>直接缓存整个对象的 JSON，命令例子： <code>SET user:1 &#39;&#123;&quot;name&quot;:&quot;wxgg&quot;, &quot;age&quot;:18&#125;&#39;</code>。</li>
+<li>采用将 key 进行分离为 user:ID:属性，采用 MSET 存储，用 MGET 获取各属性值，命令例子： <code>MSET user:1:name wxgg user:1:age 18 user:2:name wxjj user:2:age 18</code>。</li>
+</ul>
+<p>常规计数</p>
+<p>因为 Redis 处理命令是单线程，所以执行命令的过程是原子的。因此 String 数据类型适合计数场景，比如计算访问次数、点赞、转发、库存数量等等。</p>
+<p>分布式锁</p>
+<p>SET 命令有个 NX 参数可以实现「key不存在才插入」，可以用它来实现分布式锁：</p>
+<ul>
+<li>如果 key 不存在，则显示插入成功，可以用来表示加锁成功；</li>
+<li>如果 key 存在，则会显示插入失败，可以用来表示加锁失败。</li>
+</ul>
+<h3 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h3><p>Hash 是一个键值对（key - value）集合，其中 value 的形式入： <code>value=[&#123;field1，value1&#125;，...&#123;fieldN，valueN&#125;]</code>。Hash 特别适合用于存储对象。</p>
+<p>内部实现</p>
+<p>Hash 类型的底层数据结构是由<strong>压缩列表或哈希表</strong>实现的：</p>
+<ul>
+<li>如果哈希类型元素个数小于 <code>512</code> 个（默认值，可由 <code>hash-max-ziplist-entries</code> 配置），所有值小于 <code>64</code> 字节（默认值，可由 <code>hash-max-ziplist-value</code> 配置）的话，Redis 会使用<strong>压缩列表</strong>作为 Hash 类型的底层数据结构；</li>
+<li>如果哈希类型元素不满足上面条件，Redis 会使用<strong>哈希表</strong>作为 Hash 类型的 底层数据结构。</li>
+</ul>
+<p><strong>在 Redis 7.0 中，压缩列表数据结构已经废弃了，交由 listpack (紧凑列表)数据结构来实现了</strong>。</p>
+<p>Hash 类型的底层数据结构是由<strong>压缩列表或哈希表</strong>实现的：</p>
+<ul>
+<li>如果哈希类型元素个数小于 <code>512</code> 个（默认值，可由 <code>hash-max-ziplist-entries</code> 配置），所有值小于 <code>64</code> 字节（默认值，可由 <code>hash-max-ziplist-value</code> 配置）的话，Redis 会使用<strong>压缩列表</strong>作为 Hash 类型的底层数据结构；</li>
+<li>如果哈希类型元素不满足上面条件，Redis 会使用<strong>哈希表</strong>作为 Hash 类型的 底层数据结构。</li>
+</ul>
+<p><strong>在 Redis 7.0 中，压缩列表数据结构已经废弃了，交由 listpack 数据结构来实现了</strong>。</p>
+<h4 id="基本命令-1"><a href="#基本命令-1" class="headerlink" title="基本命令"></a>基本命令</h4><h5 id="HSET"><a href="#HSET" class="headerlink" title="HSET"></a>HSET</h5><p>语法 <code>hset key field value</code></p>
+<p>一个key的值可以有多个 field但一个 field只能有一个 value 可以和 go中的map 一起理解</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hset gocybee wx 666</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; hset gocybee yxh 666</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="HSETNX"><a href="#HSETNX" class="headerlink" title="HSETNX"></a>HSETNX</h5><p>语法 <code>hsetnx key field value</code></p>
+<p>设置哈希的一个字段，当指定的字段不存在时才会被设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hset wx age 18</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; hsetnx wx age 18</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; hsetnx wx weight 70</span><br><span class="line">(integer) 1</span><br><span class="line">1234</span><br></pre></td></tr></table></figure>
+
+<p>在上面的命令中，age 字段已经存在于 wx这个 key 中，因此 hsetnx 命令的执行并没有添加或修改 age，而 weight 在 wx这个 key 中是不存在的，因此 weight 被添加到 wx中。</p>
+<h5 id="HMSET"><a href="#HMSET" class="headerlink" title="HMSET"></a>HMSET</h5><p>语法： <code>hmset key field value [field value ...]</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hset wx age 18  weight 60</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="HGET"><a href="#HGET" class="headerlink" title="HGET"></a>HGET</h5><p>语法：  <code>hget key field</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hget wx age</span><br><span class="line">&quot;18&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="HGETALL"><a href="#HGETALL" class="headerlink" title="HGETALL"></a>HGETALL</h5><p>获取哈希的所有字段的值，该命令的用法如下：</p>
+<p><code>hgetall key</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hgetall wx</span><br><span class="line">1) &quot;age&quot;</span><br><span class="line">2) &quot;18&quot;</span><br><span class="line">3) &quot;weight&quot;</span><br><span class="line">4) &quot;60&quot;</span><br></pre></td></tr></table></figure>
+
+<p>前一个是field 后面是value</p>
+<h5 id="HkEYS"><a href="#HkEYS" class="headerlink" title="HkEYS"></a>HkEYS</h5><p>语法：<code>hkeys key</code></p>
+<p>该命令的作用是：获取哈希的所有字段，但是不获取值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hkeys wx</span><br><span class="line">1) &quot;age&quot;</span><br><span class="line">2) &quot;weight&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="HEXISTS"><a href="#HEXISTS" class="headerlink" title="HEXISTS"></a>HEXISTS</h5><p>语法：<code>hexists key field</code></p>
+<p>该命令的作用是：判断字段是否存在于指定哈希中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hexists wx age</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; hexists wx tall</span><br><span class="line">(integer) 0</span><br></pre></td></tr></table></figure>
+
+<h5 id="HLEN"><a href="#HLEN" class="headerlink" title="HLEN"></a>HLEN</h5><p>语法： <code>hlen key</code></p>
+<p>获取指定哈希中字段的数量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hlen wx</span><br><span class="line">(integer) 2</span><br></pre></td></tr></table></figure>
+
+<h5 id="HMGET"><a href="#HMGET" class="headerlink" title="HMGET"></a>HMGET</h5><p>语法 ：  <code>hmget key field [field ...]</code></p>
+<p>获取指定哈希中的多个字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hmget wx age weight</span><br><span class="line">1) &quot;18&quot;</span><br><span class="line">2) &quot;60&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="HSTRLEN"><a href="#HSTRLEN" class="headerlink" title="HSTRLEN"></a>HSTRLEN</h5><p>语法 ： <code>hstrlen key field</code></p>
+<p>该命令的作用是：获取指定哈希中字段的长度，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hstrlen wx age</span><br><span class="line">(integer) 2</span><br></pre></td></tr></table></figure>
+
+<h5 id="HVALS"><a href="#HVALS" class="headerlink" title="HVALS"></a>HVALS</h5><p>语法： <code>hvals key</code></p>
+<p>该命令的作用是：获取指定哈希的所有值，不获取字段名称</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hvals wx</span><br><span class="line">1) &quot;18&quot;</span><br><span class="line">2) &quot;60&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="HINCRBY"><a href="#HINCRBY" class="headerlink" title="HINCRBY"></a>HINCRBY</h5><p>语法： <code>hincrby key field increment</code></p>
+<p>和 incryby类似 将指定哈希中的指定字段的值加一个指定的整型值</p>
+<h5 id="HINCRBYFLOAT"><a href="#HINCRBYFLOAT" class="headerlink" title="HINCRBYFLOAT"></a>HINCRBYFLOAT</h5><p>语法： <code>hincrbyfloat key field increment</code></p>
+<p>将指定哈希中的指定字段的值加一个指定的浮点型值 也可以加整型值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hincrbyfloat wx age 0.5</span><br><span class="line">&quot;18.5&quot;</span><br><span class="line">127.0.0.1:6379&gt; hget wx age</span><br><span class="line">&quot;18.5&quot;</span><br><span class="line">127.0.0.1:6379&gt; hincrbyfloat wx age 1</span><br><span class="line">&quot;19.5&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="HDEL"><a href="#HDEL" class="headerlink" title="HDEL"></a>HDEL</h5><p>语法: <code>hdel key</code></p>
+<p>删除哈希中指定一个或多个字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hdel wx b</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; hkeys wx</span><br><span class="line">1) &quot;age&quot;</span><br><span class="line">2) &quot;weight&quot;</span><br><span class="line">127.0.0.1:6379&gt; hdel wx age weight</span><br><span class="line">(integer) 2</span><br><span class="line">127.0.0.1:6379&gt; hkeys wx</span><br><span class="line">(empty array)</span><br></pre></td></tr></table></figure>
+
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><h5 id="缓存对象"><a href="#缓存对象" class="headerlink" title="缓存对象"></a>缓存对象</h5><p>Hash 类型的 （key，field， value） 的结构与对象的（对象id， 属性， 值）的结构相似，也可以用来存储对象。</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>age</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>lmj</td>
+<td>18</td>
+</tr>
+<tr>
+<td>2</td>
+<td>wx</td>
+<td>18</td>
+</tr>
+<tr>
+<td>3</td>
+<td>yxh</td>
+<td>18</td>
+</tr>
+</tbody></table>
+<p>我们可以这样来存储对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HSET uid:1 name lmj age 18</span><br><span class="line">HSET uid:2 name wx  age 18</span><br><span class="line">HSET uid:3 name yxh age 18</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><p>List 列表是简单的字符串列表，<strong>按照插入顺序排序</strong>，可以从头部或尾部向 List 列表添加元素。</p>
+<p>列表的最大长度为 <code>2^32 - 1</code>，也即每个列表支持超过 <code>40 亿</code>个元素。</p>
+<h4 id="内部实现"><a href="#内部实现" class="headerlink" title="内部实现"></a>内部实现</h4><p>List 类型的底层数据结构是由<strong>双向链表或压缩列表</strong>实现的：</p>
+<ul>
+<li>如果列表的元素个数小于 <code>512</code> 个（默认值，可由 <code>list-max-ziplist-entries</code> 配置），列表每个元素的值都小于 <code>64</code> 字节（默认值，可由 <code>list-max-ziplist-value</code> 配置），Redis 会使用<strong>压缩列表</strong>作为 List 类型的底层数据结构；</li>
+<li>如果列表的元素不满足上面的条件，Redis 会使用<strong>双向链表</strong>作为 List 类型的底层数据结构；</li>
+</ul>
+<p>但是<strong>在 Redis 3.2 版本之后，List 数据类型底层数据结构就只由 quicklist（快速表） 实现了，替代了双向链表和压缩列表</strong>。</p>
+<h4 id="基本命令-2"><a href="#基本命令-2" class="headerlink" title="基本命令"></a>基本命令</h4><h5 id="LPUSH"><a href="#LPUSH" class="headerlink" title="LPUSH"></a>LPUSH</h5><p>语法：  <code>lpush key element [element ...]</code></p>
+<p>当key存在但是却不是列表会返回错误</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lpush gocybee 1 2 3 4 5 6</span><br><span class="line">(integer) 6</span><br></pre></td></tr></table></figure>
+
+<h5 id="LRANGE"><a href="#LRANGE" class="headerlink" title="LRANGE"></a>LRANGE</h5><p>语法： <code>LRANGE key start stop</code></p>
+<p>-1是倒数第一个 依次类推</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lrange gocybee 0 -1</span><br><span class="line">1) &quot;6&quot;</span><br><span class="line">2) &quot;5&quot;</span><br><span class="line">3) &quot;4&quot;</span><br><span class="line">4) &quot;3&quot;</span><br><span class="line">5) &quot;2&quot;</span><br><span class="line">6) &quot;1&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="LPOP"><a href="#LPOP" class="headerlink" title="LPOP"></a>LPOP</h5><p>语法：<code>lpop key [count]</code></p>
+<p>移除列表key的表头元素，出队列 counts是出队次数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lpush gocybee 1</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="RPOP"><a href="#RPOP" class="headerlink" title="RPOP"></a>RPOP</h5><p>语法：<code>RPOP key [count]</code></p>
+<p>移除列表key的尾元素，出队列 counts是出队次数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lrange gocybee 0 -1</span><br><span class="line">1) &quot;twh&quot;</span><br><span class="line">2) &quot;tr&quot;</span><br><span class="line">3) &quot;lmj&quot;</span><br><span class="line">4) &quot;000&quot;</span><br><span class="line">127.0.0.1:6379&gt; RPOP gocybee 1</span><br><span class="line">1) &quot;000&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="LSET"><a href="#LSET" class="headerlink" title="LSET"></a>LSET</h5><p>语法： <code>lset key index element</code></p>
+<p>通过索引设置列表元素的值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lrange gocybee 0 -1</span><br><span class="line">1) &quot;twh&quot;</span><br><span class="line">2) &quot;lmj&quot;</span><br><span class="line">3) &quot;wx&quot;</span><br><span class="line">4) &quot;hhz&quot;</span><br><span class="line">127.0.0.1:6379&gt; lset gocybee 1 tr</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; lrange gocybee 0 -1</span><br><span class="line">1) &quot;twh&quot;</span><br><span class="line">2) &quot;tr&quot;</span><br><span class="line">3) &quot;wx&quot;</span><br><span class="line">4) &quot;hhz&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="LLEN"><a href="#LLEN" class="headerlink" title="LLEN"></a>LLEN</h5><p>语法：<code>llen key</code></p>
+<p>获取列表长度</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; llen gocybee</span><br><span class="line">(integer) 3</span><br></pre></td></tr></table></figure>
+
+<h5 id="BLPOP"><a href="#BLPOP" class="headerlink" title="BLPOP"></a>BLPOP</h5><p>语法： <code>blpop key [key ...] timeout</code></p>
+<p>移出并获取列表的第一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止</p>
+<p>timeout （s）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lpush gocybee &#x27;hello gocybee&#x27;</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; blpop gocybee 50</span><br><span class="line">1) &quot;gocybee&quot;</span><br><span class="line">2) &quot;hello gocybee&quot;</span><br><span class="line">(22.08s)</span><br></pre></td></tr></table></figure>
+
+<p>其他命令 help @list 解决</p>
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><p>Set 类型是一个无序并唯一的键值集合，它的存储顺序不会按照插入的先后顺序进行存储。</p>
+<p>一个集合最多可以存储 <code>2^32-1</code> 个元素。概念和数学中个的集合基本类似，可以交集，并集，差集等等，所以 Set 类型除了支持集合内的增删改查，同时还支持多个集合取交集、并集、差集。</p>
+<p>Set 类型和 List 类型的区别如下：</p>
+<ul>
+<li>List 可以存储重复元素，Set 只能存储非重复元素；</li>
+<li>List 是按照元素的先后顺序存储元素的，而 Set 则是无序方式存储元素的。</li>
+</ul>
+<h4 id="内部实现-1"><a href="#内部实现-1" class="headerlink" title="内部实现"></a>内部实现</h4><p>Set 类型的底层数据结构是由<strong>哈希表或整数集合</strong>实现的：</p>
+<ul>
+<li>如果集合中的元素都是整数且元素个数小于 <code>512</code> （默认值，<code>set-maxintset-entries</code>配置）个，Redis 会使用<strong>整数集合</strong>作为 Set 类型的底层数据结构；</li>
+<li>如果集合中的元素不满足上面条件，则 Redis 使用<strong>哈希表</strong>作为 Set 类型的底层数据结构。</li>
+</ul>
+<h4 id="基本命令-3"><a href="#基本命令-3" class="headerlink" title="基本命令"></a>基本命令</h4><h5 id="SADD"><a href="#SADD" class="headerlink" title="SADD"></a>SADD</h5><p>语法：<code>SADD key member [member ...]</code></p>
+<p>往集合key中存入元素，元素存在则忽略，若key不存在则新建</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SADD gocybee 1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; SADD gocybee 1</span><br><span class="line">(integer) 0</span><br></pre></td></tr></table></figure>
+
+<h5 id="SREM"><a href="#SREM" class="headerlink" title="SREM"></a>SREM</h5><p>语法：<code>SREM key member [member ...]</code></p>
+<p>从集合key中删除元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SREM gocybee 1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; SREM gocybee 1</span><br><span class="line">(integer) 0</span><br></pre></td></tr></table></figure>
+
+<h5 id="SMEMBERS"><a href="#SMEMBERS" class="headerlink" title="SMEMBERS"></a>SMEMBERS</h5><p>语法：<code>SMEMBERS key</code></p>
+<p>查看所有的members</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; smembers gocybee</span><br><span class="line">1) &quot;wx&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="SCARD"><a href="#SCARD" class="headerlink" title="SCARD"></a>SCARD</h5><p>语法：<code>SCARD key</code></p>
+<p>查看元素个数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SCARD gocybee</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="SISMEMBER"><a href="#SISMEMBER" class="headerlink" title="SISMEMBER"></a>SISMEMBER</h5><p>语法：<code>SISMEMBER key member</code></p>
+<p>判断元素是否是在集合中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SISmember gocybee wx</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="SRANDMEMBER"><a href="#SRANDMEMBER" class="headerlink" title="SRANDMEMBER"></a>SRANDMEMBER</h5><p>语法： <code>SRANDMEMBER key [count]</code></p>
+<p>从集合key中随机选出count个元素，元素不从key中删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; Srandmember gocybee 3</span><br><span class="line">1) &quot;yxh&quot;</span><br><span class="line">2) &quot;hhz&quot;</span><br><span class="line">3) &quot;mj&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="SPOP"><a href="#SPOP" class="headerlink" title="SPOP"></a>SPOP</h5><p>语法：  <code>SPOP key [count]</code></p>
+<p>从集合key中随机选出count个元素，元素从key中删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; Smembers gocybee</span><br><span class="line">1) &quot;yxh&quot;</span><br><span class="line">2) &quot;hhz&quot;</span><br><span class="line">3) &quot;wx&quot;</span><br><span class="line">127.0.0.1:6379&gt; SPOP gocybee 1</span><br><span class="line">1) &quot;wx&quot;</span><br><span class="line">127.0.0.1:6379&gt; Smembers gocybee</span><br><span class="line">1) &quot;yxh&quot;</span><br><span class="line">2) &quot;hhz&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="SINTER"><a href="#SINTER" class="headerlink" title="SINTER"></a>SINTER</h5><p>语法： <code>SINTER key [key ...]</code></p>
+<p>交集运算返回两个set的交集</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; Smembers gocybee</span><br><span class="line">1) &quot;yxh&quot;</span><br><span class="line">2) &quot;hhz&quot;</span><br><span class="line">3) &quot;mj&quot;</span><br><span class="line">127.0.0.1:6379&gt; Smembers lanshan</span><br><span class="line">1) &quot;lpc&quot;</span><br><span class="line">2) &quot;yxh&quot;</span><br><span class="line">3) &quot;hhz&quot;</span><br><span class="line">4) &quot;mj&quot;</span><br><span class="line">127.0.0.1:6379&gt; SINTER  gocybee lanshan</span><br><span class="line">1) &quot;yxh&quot;</span><br><span class="line">2) &quot;hhz&quot;</span><br><span class="line">3) &quot;mj&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="SINTERSTORE"><a href="#SINTERSTORE" class="headerlink" title="SINTERSTORE"></a>SINTERSTORE</h5><p>语法： <code>SINTERSTORE destination key [key ...]</code></p>
+<p>将交集结果存入新集合destination中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SINTERSTORE common gocybee lanshan</span><br><span class="line">(integer) 3</span><br><span class="line">127.0.0.1:6379&gt; smembers common</span><br><span class="line">1) &quot;yxh&quot;</span><br><span class="line">2) &quot;hhz&quot;</span><br><span class="line">3) &quot;mj&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="SUNION"><a href="#SUNION" class="headerlink" title="SUNION"></a>SUNION</h5><p>语法： <code>SUNION gocybee lanshan</code></p>
+<p>并集运算</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SUNION gocybee lanshan</span><br><span class="line">1) &quot;hhz&quot;</span><br><span class="line">2) &quot;mj&quot;</span><br><span class="line">3) &quot;lpc&quot;</span><br><span class="line">4) &quot;yxh&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="SUNIONSTORE"><a href="#SUNIONSTORE" class="headerlink" title="SUNIONSTORE"></a>SUNIONSTORE</h5><p>语法： <code>SUNIONSTORE destination key [key ...]</code></p>
+<p>将并集结果存入新集合destination中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SUNIONSTORE union gocybee lanshan</span><br><span class="line">(integer) 4</span><br><span class="line">127.0.0.1:6379&gt; Smembers union</span><br><span class="line">1) &quot;mj&quot;</span><br><span class="line">2) &quot;lpc&quot;</span><br><span class="line">3) &quot;yxh&quot;</span><br><span class="line">4) &quot;hhz&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="SDIFF"><a href="#SDIFF" class="headerlink" title="SDIFF"></a>SDIFF</h5><p>差集运算 <code>SDIFF key [key ...]</code></p>
+<h5 id="SDIFFSTORE"><a href="#SDIFFSTORE" class="headerlink" title="SDIFFSTORE"></a>SDIFFSTORE</h5><p>将差集结果存入新集合destination中 <code>SDIFFSTORE destination key [key ...]</code></p>
+<h4 id="应用场景-1"><a href="#应用场景-1" class="headerlink" title="应用场景"></a>应用场景</h4><p>集合的主要几个特性，无序、不可重复、支持并交差等操作。</p>
+<p>因此 Set 类型比较适合用来数据去重和保障数据的唯一性，还可以用来统计多个集合的交集、错集和并集等，当我们存储的数据是无序并且需要去重的情况下，比较适合使用集合类型进行存储。</p>
+<p>但是有一个潜在的风险。<strong>Set 的差集、并集和交集的计算复杂度较高，在数据量较大的情况下，如果直接执行这些计算，会导致 Redis 实例阻塞</strong>。</p>
+<p>在主从集群中，为了避免主库因为 Set 做聚合计算（交集、差集、并集）时导致主库被阻塞，我们可以选择一个从库完成聚合统计，或者把数据返回给客户端，由客户端来完成聚合统计。</p>
+<h5 id="点赞"><a href="#点赞" class="headerlink" title="点赞"></a>点赞</h5><p>Set 类型可以保证一个用户只能点一个赞，这里举例子一个场景，key 是文章id，value 是用户id。</p>
+<p><code>uid:1</code> 、<code>uid:2</code>、<code>uid:3</code> 三个用户分别对 article:1 文章点赞了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SADD article:1 uid:1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; SADD article:1 uid:2</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; SADD article:1 uid:3</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; SCARD article:1</span><br><span class="line">(integer) 3</span><br><span class="line">127.0.0.1:6379&gt; SREM article:1 uid:1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; SCARD article:1</span><br><span class="line">(integer) 2</span><br></pre></td></tr></table></figure>
+
+<h5 id="共同关注"><a href="#共同关注" class="headerlink" title="共同关注"></a>共同关注</h5><p>Set 类型支持交集运算，所以可以用来计算共同关注的好友、公众号等。</p>
+<p>key 可以是用户id，value 则是已关注的公众号的id。</p>
+<p><code>uid:1</code> 用户关注频道号 id 为 5、6、7、8、9，<code>uid:2</code> 用户关注 频道号id 为 7、8、9、10、11。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SADD uid:1 5 6 7 8 9</span><br><span class="line">(integer) 5</span><br><span class="line">127.0.0.1:6379&gt; SADD uid:2 7 8 9 10 11</span><br><span class="line">(integer) 5</span><br></pre></td></tr></table></figure>
+
+<p>我们可以查看 <code>uid:1</code> 和 <code>uid:2</code> 共同关注的频道</p>
+<p>可以向<code>uid:2</code>推荐 <code>uid:1</code> 的频道等等…</p>
+<h5 id="抽奖活动"><a href="#抽奖活动" class="headerlink" title="抽奖活动"></a>抽奖活动</h5><p>存储某活动中中奖的用户名 ，Set 类型因为有去重功能，可以保证同一个用户不会中奖两次。</p>
+<p>key为抽奖活动名，value为员工名称，把所有员工名称放入抽奖箱</p>
+<p>再利用 <code>SRANDRM</code> 或者是 <code>SPOP</code></p>
+<h3 id="有序集合"><a href="#有序集合" class="headerlink" title="有序集合"></a>有序集合</h3><p>Zset 类型（有序集合类型）相比于 Set 类型多了一个排序属性 score（分值），对于有序集合 ZSet 来说，每个存储元素相当于有两个值组成的，一个是有序结合的元素值，一个是排序值。</p>
+<p>有序集合保留了集合不能有重复成员的特性（分值可以重复），但不同的是，有序集合中的元素可以排序。</p>
+<h5 id="内部实现-2"><a href="#内部实现-2" class="headerlink" title="内部实现"></a>内部实现</h5><p>Zset 类型的底层数据结构是由<strong>压缩列表或跳表</strong>实现的：</p>
+<ul>
+<li>如果有序集合的元素个数小于 <code>128</code> 个，并且每个元素的值小于 <code>64</code> 字节时，Redis 会使用<strong>压缩列表</strong>作为 Zset 类型的底层数据结构；</li>
+<li>如果有序集合的元素不满足上面的条件，Redis 会使用<strong>跳表</strong>作为 Zset 类型的底层数据结构；</li>
+</ul>
+<p><strong>在 Redis 7.0 中，压缩列表数据结构已经废弃了，交由 listpack 数据结构来实现了。</strong></p>
+<h4 id="基本命令-4"><a href="#基本命令-4" class="headerlink" title="基本命令"></a>基本命令</h4><h5 id="ZADD"><a href="#ZADD" class="headerlink" title="ZADD"></a>ZADD</h5><p>语法 ：<code>ZADD key score member [[score member]...]</code></p>
+<p>往有序集合key中加入带分值元素 ,core必须是浮点数或者整型，添加成功后返回被成功添加的新成员的数量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZADD movie 1 zl 2 lldq</span><br><span class="line">(integer) 2</span><br></pre></td></tr></table></figure>
+
+<h5 id="ZREM"><a href="#ZREM" class="headerlink" title="ZREM"></a>ZREM</h5><p>语法 ：<code>ZREM key member [member...]</code></p>
+<p>往有序集合key中删除元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZREM movie zl</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="ZSCORE"><a href="#ZSCORE" class="headerlink" title="ZSCORE"></a>ZSCORE</h5><p>语法： <code>ZSCORE key member</code></p>
+<p>返回有序集合key中元素member的分值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZSCORE movie lldq</span><br><span class="line">&quot;2&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="ZCARD"><a href="#ZCARD" class="headerlink" title="ZCARD"></a>ZCARD</h5><p>语法： <code>ZCARD key</code></p>
+<p>返回有序集合个数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZCARD movie</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="ZINCRBY"><a href="#ZINCRBY" class="headerlink" title="ZINCRBY"></a>ZINCRBY</h5><p><code>ZINCRBY key increment member</code></p>
+<p>为有序集合key中元素member的分值加上increment</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZINCRBY movie 3 lldq</span><br><span class="line">&quot;5&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="ZRANGE"><a href="#ZRANGE" class="headerlink" title="ZRANGE"></a>ZRANGE</h5><p><code>ZRANGE key start stop [WITHSCORES]</code></p>
+<p>正序获取有序集合key从start下标到stop下标的元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZRANGE movie 0 -1</span><br><span class="line">1) &quot;zl&quot;</span><br><span class="line">2) &quot;lldq&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="ZREVRANGE"><a href="#ZREVRANGE" class="headerlink" title="ZREVRANGE"></a>ZREVRANGE</h5><p><code>ZREVRANGE key start stop [WITHSCORES]</code></p>
+<p>倒序获取有序集合key从start下标到stop下标的元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZREVRANGE movie  0 -1</span><br><span class="line">1) &quot;lldq&quot;</span><br><span class="line">2) &quot;zl&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="ZRANGENYSCORE"><a href="#ZRANGENYSCORE" class="headerlink" title="ZRANGENYSCORE"></a>ZRANGENYSCORE</h5><p><code>ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count]</code></p>
+<p>返回有序集合中指定分数区间内的成员，分数由低到高排序。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZRANGEBYSCORE movie 0 100</span><br><span class="line">1) &quot;zl&quot;</span><br><span class="line">2) &quot;lldq&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="ZREVRANGEBYSCORE"><a href="#ZREVRANGEBYSCORE" class="headerlink" title="ZREVRANGEBYSCORE"></a>ZREVRANGEBYSCORE</h5><p><code>ZREVRANGEBYSCORE key max min [WITHSCORES] [LIMIT offset count]</code></p>
+<p>返回有序集合中指定分数区间内的成员，分数由高到低排序。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZREVRANGEBYSCORE movie 100 0</span><br><span class="line">1) &quot;lldq&quot;</span><br><span class="line">2) &quot;zl&quot;</span><br><span class="line">127.0.0.1:6379&gt; ZSCORE movie lldq</span><br><span class="line">&quot;5&quot;</span><br><span class="line">127.0.0.1:6379&gt; ZSCORE movie zl</span><br><span class="line">&quot;4&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="ZRANGEBYLEX"><a href="#ZRANGEBYLEX" class="headerlink" title="ZRANGEBYLEX"></a>ZRANGEBYLEX</h5><p><code>ZRANGEBYLEX key min max [LIMIT offset count]</code></p>
+<p>返回指定成员区间内的成员，按字典正序排列, 分数必须相同</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZRANGEBYLEX movie - [zl</span><br><span class="line">1) &quot;zl&quot;</span><br><span class="line">2) &quot;lldq&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="ZREVRANGEBYLEX"><a href="#ZREVRANGEBYLEX" class="headerlink" title="ZREVRANGEBYLEX"></a>ZREVRANGEBYLEX</h5><p><code>ZREVRANGEBYLEX key max min [LIMIT offset count]</code></p>
+<p>返回指定成员区间内的成员，按字典倒序排列, 分数必须相同</p>
+<blockquote>
+<p>**+ - ** 表示正无限 和负无限</p>
+<p>( 不包含 [ 包含</p>
+</blockquote>
+<h4 id="应用场景-2"><a href="#应用场景-2" class="headerlink" title="应用场景"></a>应用场景</h4><p>Zset 类型（Sorted Set，有序集合） 可以根据元素的权重来排序，我们可以自己来决定每个元素的权重值。比如说，我们可以根据元素插入 Sorted Set 的时间确定权重值，先插入的元素权重小，后插入的元素权重大。</p>
+<p>在面对需要展示最新列表、排行榜等场景时，如果数据更新频繁或者需要分页显示，可以优先考虑使用 Sorted Set。</p>
+<h5 id="排行榜"><a href="#排行榜" class="headerlink" title="排行榜"></a>排行榜</h5><p>有序集合比较典型的使用场景就是排行榜。例如学生成绩的排名榜、游戏积分排行榜、视频播放排名、电商系统中商品的销量排名等。</p>
+<h5 id="电话、姓名排序"><a href="#电话、姓名排序" class="headerlink" title="电话、姓名排序"></a>电话、姓名排序</h5><p>使用有序集合的 <code>ZRANGEBYLEX</code> 或 <code>ZREVRANGEBYLEX</code> 可以帮助我们实现电话号码或姓名的排序，我们以 <code>ZRANGEBYLEX</code> （返回指定成员区间内的成员，按 key 正序排列，分数必须相同）为例。</p>
+<h3 id="位图"><a href="#位图" class="headerlink" title="位图"></a>位图</h3><p>Bitmap，即位图，是一串连续的二进制数组（0和1），可以通过偏移量（offset）定位元素。BitMap通过最小的单位bit来进行<code>0|1</code>的设置，表示某个元素的值或者状态，时间复杂度为O(1)。</p>
+<p>由于 bit 是计算机中最小的单位，使用它进行储存将非常节省空间，特别适合一些数据量大且使用<strong>二值统计的场景</strong>。</p>
+<h4 id="内部实现-3"><a href="#内部实现-3" class="headerlink" title="内部实现"></a>内部实现</h4><p>Bitmap 本身是用 String 类型作为底层数据结构实现的一种统计二值状态的数据类型。</p>
+<p>String 类型是会保存为二进制的字节数组，所以，Redis 就把字节数组的每个 bit 位利用起来，用来表示一个元素的二值状态，你可以把 Bitmap 看作是一个 bit 数组。</p>
+<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><p><code>help @bitmap</code></p>
+<h4 id="应用场景-3"><a href="#应用场景-3" class="headerlink" title="应用场景"></a>应用场景</h4><p>1.签到统计 2.判断用户登陆态 3.连续签到用户总数 等等</p>
+<h3 id="GEO"><a href="#GEO" class="headerlink" title="GEO"></a>GEO</h3><p>Redis GEO 是 Redis 3.2 版本新增的数据类型，主要用于存储地理位置信息，并对存储的信息进行操作。</p>
+<p>在日常生活中，我们越来越依赖搜索“附近的餐馆”、在打车软件上叫车，这些都离不开基于位置信息服务（Location-Based Service，LBS）的应用。LBS 应用访问的数据是和人或物关联的一组经纬度信息，而且要能查询相邻的经纬度范围，GEO 就非常适合应用在 LBS 服务的场景中</p>
+<h4 id="内部实现-4"><a href="#内部实现-4" class="headerlink" title="内部实现"></a>内部实现</h4><p>GEO 本身并没有设计新的底层数据结构，而是直接使用了 Sorted Set 集合类型。</p>
+<p>GEO 类型使用 GeoHash 编码方法实现了经纬度到 Sorted Set 中元素权重分数的转换，这其中的两个关键机制就是「对二维地图做区间划分」和「对区间进行编码」。一组经纬度落在某个区间后，就用区间的编码值来表示，并把编码值作为 Sorted Set 元素的权重分数。</p>
+<p>这样一来，我们就可以把经纬度保存到 Sorted Set 中，利用 Sorted Set 提供的“按权重进行有序范围查找”的特性，实现 LBS 服务中频繁使用的“搜索附近”的需求。</p>
+<h4 id="应用场景-4"><a href="#应用场景-4" class="headerlink" title="应用场景"></a>应用场景</h4><p>1.查找附加的人 车 物品</p>
+<h1 id="GO使用redis"><a href="#GO使用redis" class="headerlink" title="GO使用redis"></a>GO使用redis</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/go-redis/redis/v8</span><br></pre></td></tr></table></figure>
+<h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><h4 id="普通连接模式"><a href="#普通连接模式" class="headerlink" title="普通连接模式"></a>普通连接模式</h4><p>go-redis 库中使用 redis.NewClient 函数连接 Redis 服务器。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rdb := redis.NewClient(&amp;redis.Options&#123;</span><br><span class="line">	Addr:     <span class="string">&quot;localhost:6379&quot;</span>,</span><br><span class="line">	Password: <span class="string">&quot;&quot;</span>, <span class="comment">// 密码</span></span><br><span class="line">	DB:       <span class="number">0</span>,  <span class="comment">// 数据库</span></span><br><span class="line">	PoolSize: <span class="number">20</span>, <span class="comment">// 连接池大小</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>除此之外，还可以使用 redis.ParseURL 函数从表示数据源的字符串中解析得到 Redis 服务器的配置信息。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">opt, err := redis.ParseURL(<span class="string">&quot;redis://&lt;user&gt;:&lt;pass&gt;@localhost:6379/&lt;db&gt;&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	<span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">rdb := redis.NewClient(opt)</span><br></pre></td></tr></table></figure>
+
+<h4 id="TLS连接模式"><a href="#TLS连接模式" class="headerlink" title="TLS连接模式"></a>TLS连接模式</h4><p>如果使用的是 TLS 连接方式，则需要使用 tls.Config 配置。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rdb := redis.NewClient(&amp;redis.Options&#123;</span><br><span class="line">	TLSConfig: &amp;tls.Config&#123;</span><br><span class="line">		MinVersion: tls.VersionTLS12,</span><br><span class="line">		<span class="comment">// Certificates: []tls.Certificate&#123;cert&#125;,</span></span><br><span class="line">    <span class="comment">// ServerName: &quot;your.domain.com&quot;,</span></span><br><span class="line">	&#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Redis-Sentinel模式"><a href="#Redis-Sentinel模式" class="headerlink" title="Redis Sentinel模式"></a>Redis Sentinel模式</h4><p>使用下面的命令连接到由 Redis Sentinel 管理的 Redis 服务器。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rdb := redis.NewFailoverClient(&amp;redis.FailoverOptions&#123;</span><br><span class="line">    MasterName:    <span class="string">&quot;master-name&quot;</span>,</span><br><span class="line">    SentinelAddrs: []<span class="type">string</span>&#123;<span class="string">&quot;:9126&quot;</span>, <span class="string">&quot;:9127&quot;</span>, <span class="string">&quot;:9128&quot;</span>&#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Redis-Cluster模式"><a href="#Redis-Cluster模式" class="headerlink" title="Redis Cluster模式"></a>Redis Cluster模式</h4><p>使用下面的命令连接到 Redis Cluster，go-redis 支持按延迟或随机路由命令。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rdb := redis.NewClusterClient(&amp;redis.ClusterOptions&#123;</span><br><span class="line">    Addrs: []<span class="type">string</span>&#123;<span class="string">&quot;:7000&quot;</span>, <span class="string">&quot;:7001&quot;</span>, <span class="string">&quot;:7002&quot;</span>, <span class="string">&quot;:7003&quot;</span>, <span class="string">&quot;:7004&quot;</span>, <span class="string">&quot;:7005&quot;</span>&#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 若要根据延迟或随机路由命令，请启用以下命令之一</span></span><br><span class="line">    <span class="comment">// RouteByLatency: true,</span></span><br><span class="line">    <span class="comment">// RouteRandomly: true,</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>从<code>Redis</code>获取到的值是空接口类型，要是其转化为string类型可通过fmt.Sprintf函数<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">str:=<span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> k, v := <span class="keyword">range</span> val.([]<span class="keyword">interface</span>&#123;&#125;) &#123;</span><br><span class="line">	str = fmt.Sprintf(<span class="string">&quot;%v&quot;</span>, v)</span><br><span class="line">	fmt.Println(k, str)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/08/07/Redis%E7%AC%94%E8%AE%B0/" data-id="clyfhaq7600041487guc769lh" data-title="Redis笔记" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+  </nav>
 
 </section>
         
@@ -445,7 +1310,7 @@ cause是错误原因，然后这个函数调用新创建的cancelCtx的cancel方
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a></li></ul>
     </div>
   </div>
 
@@ -458,6 +1323,14 @@ cause是错误原因，然后这个函数调用新创建的cancelCtx的cancel方
       <ul>
         
           <li>
+            <a href="/2024/07/06/Protobuf%E7%AC%94%E8%AE%B0/">Protobuf笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2024/06/29/go%E7%AE%97%E6%B3%95%E5%B0%8F%E6%8A%84/">go算法小抄</a>
+          </li>
+        
+          <li>
             <a href="/2024/06/25/TCPIP%E5%8D%8F%E8%AE%AE/">TCPIP协议</a>
           </li>
         
@@ -466,11 +1339,7 @@ cause是错误原因，然后这个函数调用新创建的cancelCtx的cancel方
           </li>
         
           <li>
-            <a href="/2023/12/01/Go%20Context%E5%8C%85%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/">Go Context包源码解读</a>
-          </li>
-        
-          <li>
-            <a href="/2023/10/29/Go%E7%AE%80%E5%8D%95%E8%AE%A1%E7%AE%97%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/">Go简单计算器的实现</a>
+            <a href="/2024/04/07/C++%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">C++算法笔记</a>
           </li>
         
       </ul>

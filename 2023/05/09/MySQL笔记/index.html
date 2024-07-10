@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>MySQL笔记 | Keiichi&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="DDL操作 连接数据库语句 1mysql -uroot -padmin;  查看数据库列表： 1show databases;  创建数据库 1create database 数据库名称;  删除数据库 1drop database 数据库名称;  使用数据库 1use 数据库名称;  查看表 1show tables;  创建表 1create table 表名(字段 字段类型,字段 字段类型)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL笔记">
+<meta property="og:url" content="http://example.com/2023/05/09/MySQL%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Keiichi&#39;s blog">
+<meta property="og:description" content="DDL操作 连接数据库语句 1mysql -uroot -padmin;  查看数据库列表： 1show databases;  创建数据库 1create database 数据库名称;  删除数据库 1drop database 数据库名称;  使用数据库 1use 数据库名称;  查看表 1show tables;  创建表 1create table 表名(字段 字段类型,字段 字段类型)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-09T03:19:35.000Z">
+<meta property="article:modified_time" content="2024-07-10T06:45:43.107Z">
+<meta property="article:author" content="Keiichi">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Keiichi's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Keiichi&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-MySQL笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/05/09/MySQL%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time class="dt-published" datetime="2023-05-09T03:19:35.000Z" itemprop="datePublished">2023-05-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      MySQL笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="DDL操作"><a href="#DDL操作" class="headerlink" title="DDL操作"></a>DDL操作</h2><ul>
+<li><p>连接数据库语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql <span class="operator">-</span>uroot <span class="operator">-</span>padmin;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看数据库列表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> databases;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建数据库</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> database 数据库名称;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除数据库</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> database 数据库名称;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用数据库</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use 数据库名称;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> tables;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> 表名(字段 字段类型,字段 字段类型);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看表结构</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">desc</span> 表名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看建表语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> 表名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改表结构</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">add</span>(添加字段)<span class="operator">/</span>modify(修改字段类型)<span class="operator">/</span>change(修改字段名称及类型)<span class="operator">/</span><span class="keyword">drop</span>(删除字段)<span class="operator">/</span>rename <span class="keyword">to</span>(修改表名)...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> 表名</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="DML操作"><a href="#DML操作" class="headerlink" title="DML操作"></a>DML操作</h2><ul>
+<li><p>添加数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 表名(字段<span class="number">1</span>,字段<span class="number">2</span>,...) <span class="keyword">values</span>(值<span class="number">1</span>,值<span class="number">2</span>,...)(值<span class="number">1</span>,值<span class="number">2</span>,...)...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> 表名 <span class="keyword">set</span> 字段<span class="number">1</span><span class="operator">=</span>值<span class="number">1</span>，字段<span class="number">2</span><span class="operator">=</span>值<span class="number">2</span> <span class="keyword">where</span> 条件</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> 表名 <span class="keyword">where</span> 条件</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="DQL操作"><a href="#DQL操作" class="headerlink" title="DQL操作"></a>DQL操作</h2><ul>
+<li>查找数据<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 字段列表 <span class="keyword">from</span> 表名 <span class="keyword">where</span> 条件列表 <span class="keyword">group</span> <span class="keyword">by</span> 分组字段列表 <span class="keyword">having</span> 分组后条件列表 <span class="keyword">order</span> <span class="keyword">by</span> 排序字段列表(升序<span class="keyword">ASC</span> 降序<span class="keyword">DESC</span>) limit 分页参数</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><ul>
+<li>非空约束  not null</li>
+<li>唯一约束  unique</li>
+<li>主键约束  primary key (自增: auto_increment)</li>
+<li>默认约束  default</li>
+<li>检查约束  check</li>
+<li>外键约束  foreign key</li>
+</ul>
+<p>其中外键约束所含约束</p>
+<ul>
+<li>no action(等同于restrict) 删除更新父表对应记录时，检查是否有外键，若有则不能动</li>
+<li>cascade 同步更新删除</li>
+<li>set null  删除父表对应记录时将对应外键赋值为null</li>
+<li>set default 父表有变更时，子表将外键赋默认值</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">add</span> <span class="keyword">constraint</span> 外键名称 <span class="keyword">foreign</span> key (外键字段) <span class="keyword">references</span> 主表名(主表字段名) <span class="keyword">on</span> <span class="keyword">update</span> cascade <span class="keyword">on</span> <span class="keyword">delete</span> cascade</span><br></pre></td></tr></table></figure>
+
+<h2 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h2><ul>
+<li><p>隐式内连接</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 字段列表 <span class="keyword">from</span> 表<span class="number">1</span>,表<span class="number">2</span> <span class="keyword">where</span> 条件...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>显式内连接</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 字段列表 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 条件</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>区别：显式比隐式更加高效且不易混淆</p>
+<ul>
+<li><p>外连接（包含左&#x2F;右表及交集部分的数据）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 字段列表 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">left</span><span class="operator">/</span><span class="keyword">right</span> <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 条件</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自连接</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 字段列表 <span class="keyword">from</span> 表A 别名A <span class="keyword">join</span> 表A 别名B <span class="keyword">on</span> 条件</span><br></pre></td></tr></table></figure>
+<p>ps：自连接时把一个表想成两个表更好理解</p>
+</li>
+<li><p>联合查询(把多次查询结果合在一起)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 字段列表 <span class="keyword">from</span> 表A</span><br><span class="line"><span class="keyword">union</span> [<span class="keyword">all</span>] <span class="comment">---不加all时会把多次查询相同的数据只留一次</span></span><br><span class="line"><span class="keyword">select</span> 字段列表 <span class="keyword">from</span> 表B</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><ul>
+<li>事务特性</li>
+</ul>
+<ol>
+<li>原子性(Atomicity)</li>
+<li>一致性(Consistency)</li>
+<li>隔离性(Isolation)</li>
+<li>持久性(Durability)</li>
+</ol>
+<ul>
+<li>事务操作<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">start</span> transaction <span class="comment">---开启事务</span></span><br><span class="line"><span class="keyword">commit</span> <span class="comment">---提交事务</span></span><br><span class="line"><span class="keyword">rollback</span> <span class="comment">---回滚事务</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="GO使用MySQL"><a href="#GO使用MySQL" class="headerlink" title="GO使用MySQL"></a>GO使用MySQL</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.com/go-sql-driver/mysql</span><br></pre></td></tr></table></figure>
+<h3 id="使用MySQL驱动"><a href="#使用MySQL驱动" class="headerlink" title="使用MySQL驱动"></a>使用MySQL驱动</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Open</span><span class="params">(driverName, dataSourceName <span class="type">string</span>)</span></span> (*DB, <span class="type">error</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Open打开一个dirverName指定的数据库，dataSourceName指定数据源，一般至少包括数据库文件名和其它连接必要的信息。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;database/sql&quot;</span></span><br><span class="line"></span><br><span class="line">	_ <span class="string">&quot;github.com/go-sql-driver/mysql&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="comment">// DSN:Data Source Name</span></span><br><span class="line">	dsn := <span class="string">&quot;user:password@tcp(127.0.0.1:3306)/dbname&quot;</span></span><br><span class="line">	db, err := sql.Open(<span class="string">&quot;mysql&quot;</span>, dsn)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> db.Close()  <span class="comment">// 注意这行代码要写在上面err判断的下面</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="初始化连接"><a href="#初始化连接" class="headerlink" title="初始化连接"></a>初始化连接</h3><p>Open函数可能只是验证其参数格式是否正确，实际上并不创建与数据库的连接。如果要检查数据源的名称是否真实有效，应该调用Ping方法。</p>
+<p>返回的DB对象可以安全地被多个goroutine并发使用，并且维护其自己的空闲连接池。因此，Open函数应该仅被调用一次，很少需要关闭这个DB对象。</p>
+<p>接下来，我们定义一个全局变量<code>db</code>，用来保存数据库连接对象。将上面的示例代码拆分出一个独立的<code>initDB</code>函数，只需要在程序启动时调用一次该函数完成全局变量db的初始化，其他函数中就可以直接使用全局变量<code>db</code>了。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个全局对象db</span></span><br><span class="line"><span class="keyword">var</span> db *sql.DB</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个初始化数据库的函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initDB</span><span class="params">()</span></span> (err <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="comment">// DSN:Data Source Name</span></span><br><span class="line">	dsn := <span class="string">&quot;user:password@tcp(127.0.0.1:3306)/sql_test?charset=utf8mb4&amp;parseTime=True&quot;</span></span><br><span class="line">	<span class="comment">// 不会校验账号密码是否正确</span></span><br><span class="line">	<span class="comment">// 注意！！！这里不要使用:=，我们是给全局变量赋值，然后在main函数中使用全局变量db</span></span><br><span class="line">	db, err = sql.Open(<span class="string">&quot;mysql&quot;</span>, dsn)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 尝试与数据库建立连接（校验dsn是否正确）</span></span><br><span class="line">	err = db.Ping()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	err := initDB() <span class="comment">// 调用输出化数据库的函数</span></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;init db failed,err:%v\n&quot;</span>, err)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>sql.DB</code>是表示连接的数据库对象（结构体实例），它保存了连接数据库相关的所有信息。它内部维护着一个具有零到多个底层连接的连接池，它可以安全地被多个goroutine同时使用。</p>
+<h3 id="SetMaxOpenConns"><a href="#SetMaxOpenConns" class="headerlink" title="SetMaxOpenConns"></a>SetMaxOpenConns</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(db *DB)</span></span> SetMaxOpenConns(n <span class="type">int</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>SetMaxOpenConns</code>设置与数据库建立连接的最大数目。 如果n大于0且小于最大闲置连接数，会将最大闲置连接数减小到匹配最大开启连接数的限制。 如果n&lt;&#x3D;0，不会限制最大开启连接数，默认为0（无限制）。</p>
+<h3 id="SetMaxIdleConns"><a href="#SetMaxIdleConns" class="headerlink" title="SetMaxIdleConns"></a>SetMaxIdleConns</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(db *DB)</span></span> SetMaxIdleConns(n <span class="type">int</span>)</span><br></pre></td></tr></table></figure>
+
+<p>SetMaxIdleConns设置连接池中的最大闲置连接数。 如果n大于最大开启连接数，则新的最大闲置连接数会减小到匹配最大开启连接数的限制。 如果n&lt;&#x3D;0，不会保留闲置连接。</p>
+<h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><h3 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h3><p><code>engine = 存储引擎</code></p>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><h3 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a>索引分类</h3><p>![[Pasted image 20230804190048.png]]</p>
+<h4 id="聚集索引"><a href="#聚集索引" class="headerlink" title="聚集索引"></a>聚集索引</h4><p>将数据存储与索引放到了一块，索引结构的叶子节点保存了整行的数据（特点是必须存在且只能由有一个）</p>
+<h4 id="二级索引"><a href="#二级索引" class="headerlink" title="二级索引"></a>二级索引</h4><p>将数据索引分开存储，索引结构的叶子节点关联的是对应的主键（可以存在多个，不是聚集索引的都是二级索引√）<br>二级索引需要扫描两个索引，进行回表查询，更加耗时，能通过聚集索引就聚集索引查</p>
+<h4 id="前缀索引"><a href="#前缀索引" class="headerlink" title="前缀索引"></a>前缀索引</h4><p>![[Pasted image 20230806204118.png]]<br>![[Pasted image 20230806204140.png]]</p>
+<p>当字段类型为字符串（varchar,text…）时，需要索引很长的字符串，这会让索引变得很大，查询时大量浪费磁盘IO，影响查询效率，此时可以将字符串部分前缀建立索引，这样可以大大节约索引空间，提高索引效率。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> index 索引名 <span class="keyword">on</span> 表名 (字段名(截取前缀长度))</span><br></pre></td></tr></table></figure>
+
+<p>前缀长度可通过索引选择性决定，而选择性时指不重复的索引值（基数）和数据表的记录总数的比值。选择性越高，效率越高</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(<span class="keyword">distinct</span> 字段名)<span class="operator">/</span><span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> 表名</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(<span class="keyword">distinct</span> <span class="built_in">substring</span>(字段名,起始,结束))<span class="operator">/</span><span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> 表名</span><br><span class="line"><span class="comment">--可用以上语句求得选择性</span></span><br><span class="line">eg：</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(<span class="keyword">distinct</span> <span class="built_in">substring</span>(email,<span class="number">1</span>,<span class="number">10</span>))<span class="operator">/</span><span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> users</span><br></pre></td></tr></table></figure>
+<h3 id="索引语法"><a href="#索引语法" class="headerlink" title="索引语法"></a>索引语法</h3><ul>
+<li><p>创建索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> [<span class="keyword">unique</span><span class="operator">|</span>fulltext] index index_name <span class="keyword">on</span> table_name(table_col_name,...)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> index <span class="keyword">from</span> table_name</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> index index_name <span class="keyword">on</span> table_name</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看索引使用情况</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain <span class="keyword">select</span>语句 </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SQL提示</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">use index     <span class="comment">--建议使用</span></span><br><span class="line">ignore index  <span class="comment">--不要使用</span></span><br><span class="line">force index   <span class="comment">--强制使用</span></span><br><span class="line"><span class="comment">--在select语句后接提示语句可达到优化操作的目的</span></span><br><span class="line">eg：</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users use<span class="operator">/</span>ignore<span class="operator">/</span>force index(索引名) <span class="keyword">where</span> 条件</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="索引使用注意事项"><a href="#索引使用注意事项" class="headerlink" title="索引使用注意事项"></a>索引使用注意事项</h4><ul>
+<li><p>使用联合索引查询时，不能跳过第一个索引查询，否则失效</p>
+</li>
+<li><p>使用联合索引查询时，出现范围查询（&gt;,&lt;）,范围查询右侧的列索引失效，若要范围查询尽量通过大于等于（&gt;&#x3D;）,小于等于（&lt;&#x3D;）,这样右侧列索引就不会失效</p>
+</li>
+<li><p>不能在索引列上运算，否则索引失效</p>
+</li>
+<li><p>字符串类型数据不加单引号，索引失效</p>
+</li>
+<li><p>尾部模糊搜索，索引失效，头部模糊搜索，索引有效</p>
+</li>
+<li><p>用or分开的条件，若or前条件有索引，后面没有，则索引失效</p>
+</li>
+<li><p>在业务场景中，如果存在多个查询条件，考虑针对于查询字段建立索引时，应该用联合索引，避免回表查询</p>
+</li>
+<li><p>控制索引数量，索引越多维护成本越高，会影响增删改</p>
+</li>
+<li><p>如果索引列不能存NULL，需要在建表时用NOT NULL约束</p>
+</li>
+</ul>
+<h2 id="SQL优化"><a href="#SQL优化" class="headerlink" title="SQL优化"></a>SQL优化</h2><h3 id="大批量插入数据"><a href="#大批量插入数据" class="headerlink" title="大批量插入数据"></a>大批量插入数据</h3><p>一次性插入大量数据，使用insert语句插入性能较低，可用load指令进行插入</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#客户端连接服务端时，加上参数 <span class="comment">--local-infile</span></span><br><span class="line">mysql <span class="comment">--local-infile -u -root -p</span></span><br><span class="line"></span><br><span class="line">#设置全局参数local_infile为<span class="number">1</span>，开启从本地加载文件导入数据的开关</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> local_infile<span class="operator">=</span><span class="number">1</span></span><br><span class="line"></span><br><span class="line">#执行load指令将准备好的数据加载到表结构中</span><br><span class="line">load data <span class="keyword">local</span> infile <span class="string">&#x27;文件路径&#x27;</span> <span class="keyword">into</span> <span class="keyword">table</span> 表名 fields terminated <span class="keyword">by</span> <span class="string">&#x27;,&#x27;</span> lines terminated <span class="keyword">by</span> <span class="string">&#x27;\n&#x27;</span> <span class="comment">--逗号间隔列 换行间隔行 可自定义</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="主键优化"><a href="#主键优化" class="headerlink" title="主键优化"></a>主键优化</h3><p>![[Pasted image 20230807214404.png]]</p>
+<h4 id="主键设计原则"><a href="#主键设计原则" class="headerlink" title="主键设计原则"></a>主键设计原则</h4><ul>
+<li>满足业务需求的情况下，尽量降低主键的长度</li>
+<li>插入数据时，尽量选择顺序插入，使用auto_increment</li>
+<li>尽量不要用UUID做主键或其他自然主键，如身份证号码</li>
+<li>业务操作时，避免对主键的修改</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/09/MySQL%E7%AC%94%E8%AE%B0/" data-id="clyfhaq4w00031487hjlmcry3" data-title="MySQL笔记" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/08/07/Redis%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Redis笔记
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/07/06/Protobuf%E7%AC%94%E8%AE%B0/">Protobuf笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2024/06/29/go%E7%AE%97%E6%B3%95%E5%B0%8F%E6%8A%84/">go算法小抄</a>
+          </li>
+        
+          <li>
+            <a href="/2024/06/25/TCPIP%E5%8D%8F%E8%AE%AE/">TCPIP协议</a>
+          </li>
+        
+          <li>
+            <a href="/2024/06/23/%E4%B8%80%E4%BA%9B%E6%83%B3%E8%AF%B4%E7%9A%84%E8%AF%9D/">一些想说的话</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/07/C++%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">C++算法笔记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 Keiichi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
