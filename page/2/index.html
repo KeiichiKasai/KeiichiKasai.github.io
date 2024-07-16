@@ -71,6 +71,469 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Redis笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/08/07/Redis%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time class="dt-published" datetime="2023-08-07T13:59:56.000Z" itemprop="datePublished">2023-08-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/08/07/Redis%E7%AC%94%E8%AE%B0/">Redis笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="redis常用命令"><a href="#redis常用命令" class="headerlink" title="redis常用命令"></a>redis常用命令</h2><p><code>auth [username] password</code>  默认用户是<code>default</code></p>
+<p><code>dbsize</code> 查看数据库key数量、</p>
+<p><code>select index</code> 选择数据库，默认是0(即<code>select 0</code>)</p>
+<p><code>help @基本数据类型</code> 查看命令</p>
+<p><code>flushall</code> 删除所有key</p>
+<p><code>keys *</code> 查看所有key</p>
+<p><code>exit</code> or <code>quit</code> 退出命令行</p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>String 是最基本的 key-value 结构，key 是唯一标识，value 是具体的值，value其实不仅是字符串， 也可以是数字（整数或浮点数），value 最多可以容纳的数据长度是 <code>512M</code>。</p>
+<p><strong>底层实现：</strong>String 类型的底层的数据结构实现主要是 int 和 SDS（简单动态字符串）。</p>
+<h4 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h4><h5 id="SET"><a href="#SET" class="headerlink" title="SET"></a>SET</h5><p>语法 (不强制大小写)</p>
+<p><code>SET key value [EX seconds|PX milliseconds|EXAT timestamp|PXAT milliseconds-timestamp|KEEPTTL] [NX|XX] [GET]</code></p>
+<p><strong>EX</strong>:表明过期时间，单位是秒 和 <strong>setex</strong> 相同</p>
+<p><strong>PX</strong>:单位毫秒</p>
+<p><strong>EXAT</strong>:设置时间到某个时间戳（秒级）</p>
+<p><strong>PXAT</strong>:设置时间到某个时间戳（毫秒级）</p>
+<p><strong>NX</strong> ：当键k不存在时，设置键；设置成功返回ok，不成功时返回nil；和<strong>SETNX</strong>等价</p>
+<p><strong>XX</strong>： 与NX相反只在键已经存在时， 才对键进行设置操作</p>
+<p><strong>GET</strong>: 返回之前设的值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SET wx 666</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; GET wx</span><br><span class="line">&quot;666&quot;</span><br><span class="line">127.0.0.1:6379&gt; TTL wx</span><br><span class="line">(integer) -1</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>ttl</strong> 查看Key的过期时间(ms) -1是永久 -2是不存在或着已过期</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SET wx 666  EX 666</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; TTL wx</span><br><span class="line">(integer) 662</span><br><span class="line">127.0.0.1:6379&gt; SET wx 666 EXAT 1668931126576</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; TTL wx</span><br><span class="line">(integer) 1667262367568</span><br><span class="line">127.0.0.1:6379&gt; SET wx 666 PXAT 1668931126576</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
+<p><strong>XX与NX选项</strong>: NX当键k不存在时，设置键 ; XX则在这个k存在时设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SET wx 999  NX</span><br><span class="line">(nil)</span><br><span class="line">127.0.0.1:6379&gt; SET yxh 999 NX</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; GET yxh</span><br><span class="line">&quot;999&quot;</span><br><span class="line">127.0.0.1:6379&gt; GET wx</span><br><span class="line">&quot;666&quot;</span><br><span class="line">127.0.0.1:6379&gt; SET wx 999 XX</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; GET wx</span><br><span class="line">&quot;999&quot;</span><br></pre></td></tr></table></figure>
+
+<p>GET 会返回之前的value 如果key不存在SET不会失败</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SET yxh 999</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; SET yxh 1 GET</span><br><span class="line">&quot;999&quot;</span><br><span class="line">127.0.0.1:6379&gt; SET lmj 1 GET</span><br><span class="line">(nil)  </span><br><span class="line">127.0.0.1:6379&gt; GET lmj</span><br><span class="line">&quot;1&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="SETEX"><a href="#SETEX" class="headerlink" title="SETEX"></a>SETEX</h5><p>语法: <code>setex key seconds value</code></p>
+<p>和 set key value ex 一样</p>
+<p>PSETEX</p>
+<p>语法：<code>psetex key milliseconds value</code></p>
+<p>和 set key value px 一样</p>
+<p>MSET</p>
+<p>语法： <code>MSET key value [key value ...]</code></p>
+<p>同时设置多个键值对 返回OK</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; MSET wx  1 lmj 2</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
+<p>MGET</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; MGET wx  lmj</span><br><span class="line">1) &quot;1&quot;</span><br><span class="line">2) &quot;2&quot;</span><br></pre></td></tr></table></figure>
+
+<p>MSETNX</p>
+<p>语法：<code>msetnx key value [key value ...]</code></p>
+<p>msetnx a 1 b 2 c 3 批量设置键值对，当所有key都不存在时返回1，否则返回0</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; msetnx a 1 b 2 c 3</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; msetnx a 1 b 2 c 3</span><br><span class="line">(integer) 0</span><br></pre></td></tr></table></figure>
+
+<h5 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h5><p>语法：<code>GET key</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; GET lmj</span><br><span class="line">&quot;1&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="GETEX"><a href="#GETEX" class="headerlink" title="GETEX"></a>GETEX</h5><p>语法：<code>GETEX key [EX seconds|PX milliseconds|EXAT timestamp|PXAT milliseconds-timestamp|PERSIST]</code></p>
+<ul>
+<li>用于获取k的值，并设置或者移除过期时间，参数类似于set</li>
+<li>EX,PX,EXAT,PXAT 和set的相同</li>
+<li>PERSIST移除k的过期时间</li>
+</ul>
+<p>相当于或值并且重新设置过期时间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; GETEX lmj EX 1</span><br><span class="line">&quot;2&quot;</span><br><span class="line">127.0.0.1:6379&gt; GET lmj</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
+
+<p>GETSET</p>
+<p>语法 <code>getset key value</code></p>
+<p>和 set key value get 相同</p>
+<p>GETRANGE</p>
+<p>语法：<code>getrange key start end</code></p>
+<p>截取字符串 下标从0开始</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; getrange lanshan 0 2</span><br><span class="line">&quot;lan&quot;</span><br></pre></td></tr></table></figure>
+
+<p>SETRANGE</p>
+<p>语法： <code>setrange key offset value</code></p>
+<p>setrange 用value从偏移量（offset）开始(包括offset)，覆盖key的值</p>
+<p>如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set key abc</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; setrange key 2 def</span><br><span class="line">(integer) 5</span><br><span class="line">127.0.0.1:6379&gt; get key</span><br><span class="line">&quot;abdef&quot;</span><br></pre></td></tr></table></figure>
+
+<p>STRLEN</p>
+<p>语法 <code>strlen key</code></p>
+<p>strlen key 返回键key存储的值的长度，<strong>不存在的k返回0</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; strlen lmj</span><br><span class="line">(integer) 3</span><br></pre></td></tr></table></figure>
+
+<p>INCR</p>
+<p>语法<code>incr key</code></p>
+<p>incr 对key的值加1，并返回加1后的结果；如果k的值是字符串，无法加1，则提示错误</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set k 1</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; incr k</span><br><span class="line">(integer) 2</span><br><span class="line">127.0.0.1:6379&gt; set k wx</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; incr k</span><br><span class="line">(error) ERR value is not an integer or out of range</span><br></pre></td></tr></table></figure>
+
+<p>INCRBY</p>
+<p>语法 <code>incrby key increment</code></p>
+<p>类似 INCR 只不过可以设置任意数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; get k</span><br><span class="line">&quot;8&quot;</span><br><span class="line">127.0.0.1:6379&gt; incrby k  2</span><br><span class="line">(integer) 10</span><br></pre></td></tr></table></figure>
+
+<p>INCRBYFLOAT</p>
+<p>语法：<code>incrbyfloat key increment</code></p>
+<p>增加浮点值或者加整型值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; get k</span><br><span class="line">&quot;0.3&quot;</span><br><span class="line">127.0.0.1:6379&gt; incrbyfloat k 0.2</span><br><span class="line">&quot;0.5&quot;</span><br><span class="line">127.0.0.1:6379&gt; incrbyfloat k 1</span><br><span class="line">&quot;1.5&quot;</span><br></pre></td></tr></table></figure>
+
+<p>DECR</p>
+<p>语法 <code>decr key</code></p>
+<p>值减一 类似incr</p>
+<p>DECRBY</p>
+<p>语法 : <code>decrby key decrement</code></p>
+<p>自定义减值 类似incrby</p>
+<p>APPEND</p>
+<p>语法 <code>append key value</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set k 12</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; append k 345</span><br><span class="line">(integer) 5</span><br><span class="line">127.0.0.1:6379&gt; get k</span><br><span class="line">&quot;12345&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>DEL</strong></p>
+<p>语法 <code>del key</code> 删除值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; del k</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; get k</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
+
+<p>应用场景</p>
+<p>缓存对象</p>
+<p>使用 String 来缓存对象有两种方式：</p>
+<ul>
+<li>直接缓存整个对象的 JSON，命令例子： <code>SET user:1 &#39;&#123;&quot;name&quot;:&quot;wxgg&quot;, &quot;age&quot;:18&#125;&#39;</code>。</li>
+<li>采用将 key 进行分离为 user:ID:属性，采用 MSET 存储，用 MGET 获取各属性值，命令例子： <code>MSET user:1:name wxgg user:1:age 18 user:2:name wxjj user:2:age 18</code>。</li>
+</ul>
+<p>常规计数</p>
+<p>因为 Redis 处理命令是单线程，所以执行命令的过程是原子的。因此 String 数据类型适合计数场景，比如计算访问次数、点赞、转发、库存数量等等。</p>
+<p>分布式锁</p>
+<p>SET 命令有个 NX 参数可以实现「key不存在才插入」，可以用它来实现分布式锁：</p>
+<ul>
+<li>如果 key 不存在，则显示插入成功，可以用来表示加锁成功；</li>
+<li>如果 key 存在，则会显示插入失败，可以用来表示加锁失败。</li>
+</ul>
+<h3 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h3><p>Hash 是一个键值对（key - value）集合，其中 value 的形式入： <code>value=[&#123;field1，value1&#125;，...&#123;fieldN，valueN&#125;]</code>。Hash 特别适合用于存储对象。</p>
+<p>内部实现</p>
+<p>Hash 类型的底层数据结构是由<strong>压缩列表或哈希表</strong>实现的：</p>
+<ul>
+<li>如果哈希类型元素个数小于 <code>512</code> 个（默认值，可由 <code>hash-max-ziplist-entries</code> 配置），所有值小于 <code>64</code> 字节（默认值，可由 <code>hash-max-ziplist-value</code> 配置）的话，Redis 会使用<strong>压缩列表</strong>作为 Hash 类型的底层数据结构；</li>
+<li>如果哈希类型元素不满足上面条件，Redis 会使用<strong>哈希表</strong>作为 Hash 类型的 底层数据结构。</li>
+</ul>
+<p><strong>在 Redis 7.0 中，压缩列表数据结构已经废弃了，交由 listpack (紧凑列表)数据结构来实现了</strong>。</p>
+<p>Hash 类型的底层数据结构是由<strong>压缩列表或哈希表</strong>实现的：</p>
+<ul>
+<li>如果哈希类型元素个数小于 <code>512</code> 个（默认值，可由 <code>hash-max-ziplist-entries</code> 配置），所有值小于 <code>64</code> 字节（默认值，可由 <code>hash-max-ziplist-value</code> 配置）的话，Redis 会使用<strong>压缩列表</strong>作为 Hash 类型的底层数据结构；</li>
+<li>如果哈希类型元素不满足上面条件，Redis 会使用<strong>哈希表</strong>作为 Hash 类型的 底层数据结构。</li>
+</ul>
+<p><strong>在 Redis 7.0 中，压缩列表数据结构已经废弃了，交由 listpack 数据结构来实现了</strong>。</p>
+<h4 id="基本命令-1"><a href="#基本命令-1" class="headerlink" title="基本命令"></a>基本命令</h4><h5 id="HSET"><a href="#HSET" class="headerlink" title="HSET"></a>HSET</h5><p>语法 <code>hset key field value</code></p>
+<p>一个key的值可以有多个 field但一个 field只能有一个 value 可以和 go中的map 一起理解</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hset gocybee wx 666</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; hset gocybee yxh 666</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="HSETNX"><a href="#HSETNX" class="headerlink" title="HSETNX"></a>HSETNX</h5><p>语法 <code>hsetnx key field value</code></p>
+<p>设置哈希的一个字段，当指定的字段不存在时才会被设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hset wx age 18</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; hsetnx wx age 18</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; hsetnx wx weight 70</span><br><span class="line">(integer) 1</span><br><span class="line">1234</span><br></pre></td></tr></table></figure>
+
+<p>在上面的命令中，age 字段已经存在于 wx这个 key 中，因此 hsetnx 命令的执行并没有添加或修改 age，而 weight 在 wx这个 key 中是不存在的，因此 weight 被添加到 wx中。</p>
+<h5 id="HMSET"><a href="#HMSET" class="headerlink" title="HMSET"></a>HMSET</h5><p>语法： <code>hmset key field value [field value ...]</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hset wx age 18  weight 60</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="HGET"><a href="#HGET" class="headerlink" title="HGET"></a>HGET</h5><p>语法：  <code>hget key field</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hget wx age</span><br><span class="line">&quot;18&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="HGETALL"><a href="#HGETALL" class="headerlink" title="HGETALL"></a>HGETALL</h5><p>获取哈希的所有字段的值，该命令的用法如下：</p>
+<p><code>hgetall key</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hgetall wx</span><br><span class="line">1) &quot;age&quot;</span><br><span class="line">2) &quot;18&quot;</span><br><span class="line">3) &quot;weight&quot;</span><br><span class="line">4) &quot;60&quot;</span><br></pre></td></tr></table></figure>
+
+<p>前一个是field 后面是value</p>
+<h5 id="HkEYS"><a href="#HkEYS" class="headerlink" title="HkEYS"></a>HkEYS</h5><p>语法：<code>hkeys key</code></p>
+<p>该命令的作用是：获取哈希的所有字段，但是不获取值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hkeys wx</span><br><span class="line">1) &quot;age&quot;</span><br><span class="line">2) &quot;weight&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="HEXISTS"><a href="#HEXISTS" class="headerlink" title="HEXISTS"></a>HEXISTS</h5><p>语法：<code>hexists key field</code></p>
+<p>该命令的作用是：判断字段是否存在于指定哈希中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hexists wx age</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; hexists wx tall</span><br><span class="line">(integer) 0</span><br></pre></td></tr></table></figure>
+
+<h5 id="HLEN"><a href="#HLEN" class="headerlink" title="HLEN"></a>HLEN</h5><p>语法： <code>hlen key</code></p>
+<p>获取指定哈希中字段的数量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hlen wx</span><br><span class="line">(integer) 2</span><br></pre></td></tr></table></figure>
+
+<h5 id="HMGET"><a href="#HMGET" class="headerlink" title="HMGET"></a>HMGET</h5><p>语法 ：  <code>hmget key field [field ...]</code></p>
+<p>获取指定哈希中的多个字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hmget wx age weight</span><br><span class="line">1) &quot;18&quot;</span><br><span class="line">2) &quot;60&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="HSTRLEN"><a href="#HSTRLEN" class="headerlink" title="HSTRLEN"></a>HSTRLEN</h5><p>语法 ： <code>hstrlen key field</code></p>
+<p>该命令的作用是：获取指定哈希中字段的长度，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hstrlen wx age</span><br><span class="line">(integer) 2</span><br></pre></td></tr></table></figure>
+
+<h5 id="HVALS"><a href="#HVALS" class="headerlink" title="HVALS"></a>HVALS</h5><p>语法： <code>hvals key</code></p>
+<p>该命令的作用是：获取指定哈希的所有值，不获取字段名称</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hvals wx</span><br><span class="line">1) &quot;18&quot;</span><br><span class="line">2) &quot;60&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="HINCRBY"><a href="#HINCRBY" class="headerlink" title="HINCRBY"></a>HINCRBY</h5><p>语法： <code>hincrby key field increment</code></p>
+<p>和 incryby类似 将指定哈希中的指定字段的值加一个指定的整型值</p>
+<h5 id="HINCRBYFLOAT"><a href="#HINCRBYFLOAT" class="headerlink" title="HINCRBYFLOAT"></a>HINCRBYFLOAT</h5><p>语法： <code>hincrbyfloat key field increment</code></p>
+<p>将指定哈希中的指定字段的值加一个指定的浮点型值 也可以加整型值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hincrbyfloat wx age 0.5</span><br><span class="line">&quot;18.5&quot;</span><br><span class="line">127.0.0.1:6379&gt; hget wx age</span><br><span class="line">&quot;18.5&quot;</span><br><span class="line">127.0.0.1:6379&gt; hincrbyfloat wx age 1</span><br><span class="line">&quot;19.5&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="HDEL"><a href="#HDEL" class="headerlink" title="HDEL"></a>HDEL</h5><p>语法: <code>hdel key</code></p>
+<p>删除哈希中指定一个或多个字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hdel wx b</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; hkeys wx</span><br><span class="line">1) &quot;age&quot;</span><br><span class="line">2) &quot;weight&quot;</span><br><span class="line">127.0.0.1:6379&gt; hdel wx age weight</span><br><span class="line">(integer) 2</span><br><span class="line">127.0.0.1:6379&gt; hkeys wx</span><br><span class="line">(empty array)</span><br></pre></td></tr></table></figure>
+
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><h5 id="缓存对象"><a href="#缓存对象" class="headerlink" title="缓存对象"></a>缓存对象</h5><p>Hash 类型的 （key，field， value） 的结构与对象的（对象id， 属性， 值）的结构相似，也可以用来存储对象。</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>age</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>lmj</td>
+<td>18</td>
+</tr>
+<tr>
+<td>2</td>
+<td>wx</td>
+<td>18</td>
+</tr>
+<tr>
+<td>3</td>
+<td>yxh</td>
+<td>18</td>
+</tr>
+</tbody></table>
+<p>我们可以这样来存储对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HSET uid:1 name lmj age 18</span><br><span class="line">HSET uid:2 name wx  age 18</span><br><span class="line">HSET uid:3 name yxh age 18</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><p>List 列表是简单的字符串列表，<strong>按照插入顺序排序</strong>，可以从头部或尾部向 List 列表添加元素。</p>
+<p>列表的最大长度为 <code>2^32 - 1</code>，也即每个列表支持超过 <code>40 亿</code>个元素。</p>
+<h4 id="内部实现"><a href="#内部实现" class="headerlink" title="内部实现"></a>内部实现</h4><p>List 类型的底层数据结构是由<strong>双向链表或压缩列表</strong>实现的：</p>
+<ul>
+<li>如果列表的元素个数小于 <code>512</code> 个（默认值，可由 <code>list-max-ziplist-entries</code> 配置），列表每个元素的值都小于 <code>64</code> 字节（默认值，可由 <code>list-max-ziplist-value</code> 配置），Redis 会使用<strong>压缩列表</strong>作为 List 类型的底层数据结构；</li>
+<li>如果列表的元素不满足上面的条件，Redis 会使用<strong>双向链表</strong>作为 List 类型的底层数据结构；</li>
+</ul>
+<p>但是<strong>在 Redis 3.2 版本之后，List 数据类型底层数据结构就只由 quicklist（快速表） 实现了，替代了双向链表和压缩列表</strong>。</p>
+<h4 id="基本命令-2"><a href="#基本命令-2" class="headerlink" title="基本命令"></a>基本命令</h4><h5 id="LPUSH"><a href="#LPUSH" class="headerlink" title="LPUSH"></a>LPUSH</h5><p>语法：  <code>lpush key element [element ...]</code></p>
+<p>当key存在但是却不是列表会返回错误</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lpush gocybee 1 2 3 4 5 6</span><br><span class="line">(integer) 6</span><br></pre></td></tr></table></figure>
+
+<h5 id="LRANGE"><a href="#LRANGE" class="headerlink" title="LRANGE"></a>LRANGE</h5><p>语法： <code>LRANGE key start stop</code></p>
+<p>-1是倒数第一个 依次类推</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lrange gocybee 0 -1</span><br><span class="line">1) &quot;6&quot;</span><br><span class="line">2) &quot;5&quot;</span><br><span class="line">3) &quot;4&quot;</span><br><span class="line">4) &quot;3&quot;</span><br><span class="line">5) &quot;2&quot;</span><br><span class="line">6) &quot;1&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="LPOP"><a href="#LPOP" class="headerlink" title="LPOP"></a>LPOP</h5><p>语法：<code>lpop key [count]</code></p>
+<p>移除列表key的表头元素，出队列 counts是出队次数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lpush gocybee 1</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="RPOP"><a href="#RPOP" class="headerlink" title="RPOP"></a>RPOP</h5><p>语法：<code>RPOP key [count]</code></p>
+<p>移除列表key的尾元素，出队列 counts是出队次数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lrange gocybee 0 -1</span><br><span class="line">1) &quot;twh&quot;</span><br><span class="line">2) &quot;tr&quot;</span><br><span class="line">3) &quot;lmj&quot;</span><br><span class="line">4) &quot;000&quot;</span><br><span class="line">127.0.0.1:6379&gt; RPOP gocybee 1</span><br><span class="line">1) &quot;000&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="LSET"><a href="#LSET" class="headerlink" title="LSET"></a>LSET</h5><p>语法： <code>lset key index element</code></p>
+<p>通过索引设置列表元素的值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lrange gocybee 0 -1</span><br><span class="line">1) &quot;twh&quot;</span><br><span class="line">2) &quot;lmj&quot;</span><br><span class="line">3) &quot;wx&quot;</span><br><span class="line">4) &quot;hhz&quot;</span><br><span class="line">127.0.0.1:6379&gt; lset gocybee 1 tr</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; lrange gocybee 0 -1</span><br><span class="line">1) &quot;twh&quot;</span><br><span class="line">2) &quot;tr&quot;</span><br><span class="line">3) &quot;wx&quot;</span><br><span class="line">4) &quot;hhz&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="LLEN"><a href="#LLEN" class="headerlink" title="LLEN"></a>LLEN</h5><p>语法：<code>llen key</code></p>
+<p>获取列表长度</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; llen gocybee</span><br><span class="line">(integer) 3</span><br></pre></td></tr></table></figure>
+
+<h5 id="BLPOP"><a href="#BLPOP" class="headerlink" title="BLPOP"></a>BLPOP</h5><p>语法： <code>blpop key [key ...] timeout</code></p>
+<p>移出并获取列表的第一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止</p>
+<p>timeout （s）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lpush gocybee &#x27;hello gocybee&#x27;</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; blpop gocybee 50</span><br><span class="line">1) &quot;gocybee&quot;</span><br><span class="line">2) &quot;hello gocybee&quot;</span><br><span class="line">(22.08s)</span><br></pre></td></tr></table></figure>
+
+<p>其他命令 help @list 解决</p>
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><p>Set 类型是一个无序并唯一的键值集合，它的存储顺序不会按照插入的先后顺序进行存储。</p>
+<p>一个集合最多可以存储 <code>2^32-1</code> 个元素。概念和数学中个的集合基本类似，可以交集，并集，差集等等，所以 Set 类型除了支持集合内的增删改查，同时还支持多个集合取交集、并集、差集。</p>
+<p>Set 类型和 List 类型的区别如下：</p>
+<ul>
+<li>List 可以存储重复元素，Set 只能存储非重复元素；</li>
+<li>List 是按照元素的先后顺序存储元素的，而 Set 则是无序方式存储元素的。</li>
+</ul>
+<h4 id="内部实现-1"><a href="#内部实现-1" class="headerlink" title="内部实现"></a>内部实现</h4><p>Set 类型的底层数据结构是由<strong>哈希表或整数集合</strong>实现的：</p>
+<ul>
+<li>如果集合中的元素都是整数且元素个数小于 <code>512</code> （默认值，<code>set-maxintset-entries</code>配置）个，Redis 会使用<strong>整数集合</strong>作为 Set 类型的底层数据结构；</li>
+<li>如果集合中的元素不满足上面条件，则 Redis 使用<strong>哈希表</strong>作为 Set 类型的底层数据结构。</li>
+</ul>
+<h4 id="基本命令-3"><a href="#基本命令-3" class="headerlink" title="基本命令"></a>基本命令</h4><h5 id="SADD"><a href="#SADD" class="headerlink" title="SADD"></a>SADD</h5><p>语法：<code>SADD key member [member ...]</code></p>
+<p>往集合key中存入元素，元素存在则忽略，若key不存在则新建</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SADD gocybee 1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; SADD gocybee 1</span><br><span class="line">(integer) 0</span><br></pre></td></tr></table></figure>
+
+<h5 id="SREM"><a href="#SREM" class="headerlink" title="SREM"></a>SREM</h5><p>语法：<code>SREM key member [member ...]</code></p>
+<p>从集合key中删除元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SREM gocybee 1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; SREM gocybee 1</span><br><span class="line">(integer) 0</span><br></pre></td></tr></table></figure>
+
+<h5 id="SMEMBERS"><a href="#SMEMBERS" class="headerlink" title="SMEMBERS"></a>SMEMBERS</h5><p>语法：<code>SMEMBERS key</code></p>
+<p>查看所有的members</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; smembers gocybee</span><br><span class="line">1) &quot;wx&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="SCARD"><a href="#SCARD" class="headerlink" title="SCARD"></a>SCARD</h5><p>语法：<code>SCARD key</code></p>
+<p>查看元素个数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SCARD gocybee</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="SISMEMBER"><a href="#SISMEMBER" class="headerlink" title="SISMEMBER"></a>SISMEMBER</h5><p>语法：<code>SISMEMBER key member</code></p>
+<p>判断元素是否是在集合中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SISmember gocybee wx</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="SRANDMEMBER"><a href="#SRANDMEMBER" class="headerlink" title="SRANDMEMBER"></a>SRANDMEMBER</h5><p>语法： <code>SRANDMEMBER key [count]</code></p>
+<p>从集合key中随机选出count个元素，元素不从key中删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; Srandmember gocybee 3</span><br><span class="line">1) &quot;yxh&quot;</span><br><span class="line">2) &quot;hhz&quot;</span><br><span class="line">3) &quot;mj&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="SPOP"><a href="#SPOP" class="headerlink" title="SPOP"></a>SPOP</h5><p>语法：  <code>SPOP key [count]</code></p>
+<p>从集合key中随机选出count个元素，元素从key中删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; Smembers gocybee</span><br><span class="line">1) &quot;yxh&quot;</span><br><span class="line">2) &quot;hhz&quot;</span><br><span class="line">3) &quot;wx&quot;</span><br><span class="line">127.0.0.1:6379&gt; SPOP gocybee 1</span><br><span class="line">1) &quot;wx&quot;</span><br><span class="line">127.0.0.1:6379&gt; Smembers gocybee</span><br><span class="line">1) &quot;yxh&quot;</span><br><span class="line">2) &quot;hhz&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="SINTER"><a href="#SINTER" class="headerlink" title="SINTER"></a>SINTER</h5><p>语法： <code>SINTER key [key ...]</code></p>
+<p>交集运算返回两个set的交集</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; Smembers gocybee</span><br><span class="line">1) &quot;yxh&quot;</span><br><span class="line">2) &quot;hhz&quot;</span><br><span class="line">3) &quot;mj&quot;</span><br><span class="line">127.0.0.1:6379&gt; Smembers lanshan</span><br><span class="line">1) &quot;lpc&quot;</span><br><span class="line">2) &quot;yxh&quot;</span><br><span class="line">3) &quot;hhz&quot;</span><br><span class="line">4) &quot;mj&quot;</span><br><span class="line">127.0.0.1:6379&gt; SINTER  gocybee lanshan</span><br><span class="line">1) &quot;yxh&quot;</span><br><span class="line">2) &quot;hhz&quot;</span><br><span class="line">3) &quot;mj&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="SINTERSTORE"><a href="#SINTERSTORE" class="headerlink" title="SINTERSTORE"></a>SINTERSTORE</h5><p>语法： <code>SINTERSTORE destination key [key ...]</code></p>
+<p>将交集结果存入新集合destination中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SINTERSTORE common gocybee lanshan</span><br><span class="line">(integer) 3</span><br><span class="line">127.0.0.1:6379&gt; smembers common</span><br><span class="line">1) &quot;yxh&quot;</span><br><span class="line">2) &quot;hhz&quot;</span><br><span class="line">3) &quot;mj&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="SUNION"><a href="#SUNION" class="headerlink" title="SUNION"></a>SUNION</h5><p>语法： <code>SUNION gocybee lanshan</code></p>
+<p>并集运算</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SUNION gocybee lanshan</span><br><span class="line">1) &quot;hhz&quot;</span><br><span class="line">2) &quot;mj&quot;</span><br><span class="line">3) &quot;lpc&quot;</span><br><span class="line">4) &quot;yxh&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="SUNIONSTORE"><a href="#SUNIONSTORE" class="headerlink" title="SUNIONSTORE"></a>SUNIONSTORE</h5><p>语法： <code>SUNIONSTORE destination key [key ...]</code></p>
+<p>将并集结果存入新集合destination中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SUNIONSTORE union gocybee lanshan</span><br><span class="line">(integer) 4</span><br><span class="line">127.0.0.1:6379&gt; Smembers union</span><br><span class="line">1) &quot;mj&quot;</span><br><span class="line">2) &quot;lpc&quot;</span><br><span class="line">3) &quot;yxh&quot;</span><br><span class="line">4) &quot;hhz&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="SDIFF"><a href="#SDIFF" class="headerlink" title="SDIFF"></a>SDIFF</h5><p>差集运算 <code>SDIFF key [key ...]</code></p>
+<h5 id="SDIFFSTORE"><a href="#SDIFFSTORE" class="headerlink" title="SDIFFSTORE"></a>SDIFFSTORE</h5><p>将差集结果存入新集合destination中 <code>SDIFFSTORE destination key [key ...]</code></p>
+<h4 id="应用场景-1"><a href="#应用场景-1" class="headerlink" title="应用场景"></a>应用场景</h4><p>集合的主要几个特性，无序、不可重复、支持并交差等操作。</p>
+<p>因此 Set 类型比较适合用来数据去重和保障数据的唯一性，还可以用来统计多个集合的交集、错集和并集等，当我们存储的数据是无序并且需要去重的情况下，比较适合使用集合类型进行存储。</p>
+<p>但是有一个潜在的风险。<strong>Set 的差集、并集和交集的计算复杂度较高，在数据量较大的情况下，如果直接执行这些计算，会导致 Redis 实例阻塞</strong>。</p>
+<p>在主从集群中，为了避免主库因为 Set 做聚合计算（交集、差集、并集）时导致主库被阻塞，我们可以选择一个从库完成聚合统计，或者把数据返回给客户端，由客户端来完成聚合统计。</p>
+<h5 id="点赞"><a href="#点赞" class="headerlink" title="点赞"></a>点赞</h5><p>Set 类型可以保证一个用户只能点一个赞，这里举例子一个场景，key 是文章id，value 是用户id。</p>
+<p><code>uid:1</code> 、<code>uid:2</code>、<code>uid:3</code> 三个用户分别对 article:1 文章点赞了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SADD article:1 uid:1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; SADD article:1 uid:2</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; SADD article:1 uid:3</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; SCARD article:1</span><br><span class="line">(integer) 3</span><br><span class="line">127.0.0.1:6379&gt; SREM article:1 uid:1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; SCARD article:1</span><br><span class="line">(integer) 2</span><br></pre></td></tr></table></figure>
+
+<h5 id="共同关注"><a href="#共同关注" class="headerlink" title="共同关注"></a>共同关注</h5><p>Set 类型支持交集运算，所以可以用来计算共同关注的好友、公众号等。</p>
+<p>key 可以是用户id，value 则是已关注的公众号的id。</p>
+<p><code>uid:1</code> 用户关注频道号 id 为 5、6、7、8、9，<code>uid:2</code> 用户关注 频道号id 为 7、8、9、10、11。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SADD uid:1 5 6 7 8 9</span><br><span class="line">(integer) 5</span><br><span class="line">127.0.0.1:6379&gt; SADD uid:2 7 8 9 10 11</span><br><span class="line">(integer) 5</span><br></pre></td></tr></table></figure>
+
+<p>我们可以查看 <code>uid:1</code> 和 <code>uid:2</code> 共同关注的频道</p>
+<p>可以向<code>uid:2</code>推荐 <code>uid:1</code> 的频道等等…</p>
+<h5 id="抽奖活动"><a href="#抽奖活动" class="headerlink" title="抽奖活动"></a>抽奖活动</h5><p>存储某活动中中奖的用户名 ，Set 类型因为有去重功能，可以保证同一个用户不会中奖两次。</p>
+<p>key为抽奖活动名，value为员工名称，把所有员工名称放入抽奖箱</p>
+<p>再利用 <code>SRANDRM</code> 或者是 <code>SPOP</code></p>
+<h3 id="有序集合"><a href="#有序集合" class="headerlink" title="有序集合"></a>有序集合</h3><p>Zset 类型（有序集合类型）相比于 Set 类型多了一个排序属性 score（分值），对于有序集合 ZSet 来说，每个存储元素相当于有两个值组成的，一个是有序结合的元素值，一个是排序值。</p>
+<p>有序集合保留了集合不能有重复成员的特性（分值可以重复），但不同的是，有序集合中的元素可以排序。</p>
+<h5 id="内部实现-2"><a href="#内部实现-2" class="headerlink" title="内部实现"></a>内部实现</h5><p>Zset 类型的底层数据结构是由<strong>压缩列表或跳表</strong>实现的：</p>
+<ul>
+<li>如果有序集合的元素个数小于 <code>128</code> 个，并且每个元素的值小于 <code>64</code> 字节时，Redis 会使用<strong>压缩列表</strong>作为 Zset 类型的底层数据结构；</li>
+<li>如果有序集合的元素不满足上面的条件，Redis 会使用<strong>跳表</strong>作为 Zset 类型的底层数据结构；</li>
+</ul>
+<p><strong>在 Redis 7.0 中，压缩列表数据结构已经废弃了，交由 listpack 数据结构来实现了。</strong></p>
+<h4 id="基本命令-4"><a href="#基本命令-4" class="headerlink" title="基本命令"></a>基本命令</h4><h5 id="ZADD"><a href="#ZADD" class="headerlink" title="ZADD"></a>ZADD</h5><p>语法 ：<code>ZADD key score member [[score member]...]</code></p>
+<p>往有序集合key中加入带分值元素 ,core必须是浮点数或者整型，添加成功后返回被成功添加的新成员的数量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZADD movie 1 zl 2 lldq</span><br><span class="line">(integer) 2</span><br></pre></td></tr></table></figure>
+
+<h5 id="ZREM"><a href="#ZREM" class="headerlink" title="ZREM"></a>ZREM</h5><p>语法 ：<code>ZREM key member [member...]</code></p>
+<p>往有序集合key中删除元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZREM movie zl</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="ZSCORE"><a href="#ZSCORE" class="headerlink" title="ZSCORE"></a>ZSCORE</h5><p>语法： <code>ZSCORE key member</code></p>
+<p>返回有序集合key中元素member的分值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZSCORE movie lldq</span><br><span class="line">&quot;2&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="ZCARD"><a href="#ZCARD" class="headerlink" title="ZCARD"></a>ZCARD</h5><p>语法： <code>ZCARD key</code></p>
+<p>返回有序集合个数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZCARD movie</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="ZINCRBY"><a href="#ZINCRBY" class="headerlink" title="ZINCRBY"></a>ZINCRBY</h5><p><code>ZINCRBY key increment member</code></p>
+<p>为有序集合key中元素member的分值加上increment</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZINCRBY movie 3 lldq</span><br><span class="line">&quot;5&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="ZRANGE"><a href="#ZRANGE" class="headerlink" title="ZRANGE"></a>ZRANGE</h5><p><code>ZRANGE key start stop [WITHSCORES]</code></p>
+<p>正序获取有序集合key从start下标到stop下标的元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZRANGE movie 0 -1</span><br><span class="line">1) &quot;zl&quot;</span><br><span class="line">2) &quot;lldq&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="ZREVRANGE"><a href="#ZREVRANGE" class="headerlink" title="ZREVRANGE"></a>ZREVRANGE</h5><p><code>ZREVRANGE key start stop [WITHSCORES]</code></p>
+<p>倒序获取有序集合key从start下标到stop下标的元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZREVRANGE movie  0 -1</span><br><span class="line">1) &quot;lldq&quot;</span><br><span class="line">2) &quot;zl&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="ZRANGENYSCORE"><a href="#ZRANGENYSCORE" class="headerlink" title="ZRANGENYSCORE"></a>ZRANGENYSCORE</h5><p><code>ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count]</code></p>
+<p>返回有序集合中指定分数区间内的成员，分数由低到高排序。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZRANGEBYSCORE movie 0 100</span><br><span class="line">1) &quot;zl&quot;</span><br><span class="line">2) &quot;lldq&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="ZREVRANGEBYSCORE"><a href="#ZREVRANGEBYSCORE" class="headerlink" title="ZREVRANGEBYSCORE"></a>ZREVRANGEBYSCORE</h5><p><code>ZREVRANGEBYSCORE key max min [WITHSCORES] [LIMIT offset count]</code></p>
+<p>返回有序集合中指定分数区间内的成员，分数由高到低排序。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZREVRANGEBYSCORE movie 100 0</span><br><span class="line">1) &quot;lldq&quot;</span><br><span class="line">2) &quot;zl&quot;</span><br><span class="line">127.0.0.1:6379&gt; ZSCORE movie lldq</span><br><span class="line">&quot;5&quot;</span><br><span class="line">127.0.0.1:6379&gt; ZSCORE movie zl</span><br><span class="line">&quot;4&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="ZRANGEBYLEX"><a href="#ZRANGEBYLEX" class="headerlink" title="ZRANGEBYLEX"></a>ZRANGEBYLEX</h5><p><code>ZRANGEBYLEX key min max [LIMIT offset count]</code></p>
+<p>返回指定成员区间内的成员，按字典正序排列, 分数必须相同</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZRANGEBYLEX movie - [zl</span><br><span class="line">1) &quot;zl&quot;</span><br><span class="line">2) &quot;lldq&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="ZREVRANGEBYLEX"><a href="#ZREVRANGEBYLEX" class="headerlink" title="ZREVRANGEBYLEX"></a>ZREVRANGEBYLEX</h5><p><code>ZREVRANGEBYLEX key max min [LIMIT offset count]</code></p>
+<p>返回指定成员区间内的成员，按字典倒序排列, 分数必须相同</p>
+<blockquote>
+<p>**+ - ** 表示正无限 和负无限</p>
+<p>( 不包含 [ 包含</p>
+</blockquote>
+<h4 id="应用场景-2"><a href="#应用场景-2" class="headerlink" title="应用场景"></a>应用场景</h4><p>Zset 类型（Sorted Set，有序集合） 可以根据元素的权重来排序，我们可以自己来决定每个元素的权重值。比如说，我们可以根据元素插入 Sorted Set 的时间确定权重值，先插入的元素权重小，后插入的元素权重大。</p>
+<p>在面对需要展示最新列表、排行榜等场景时，如果数据更新频繁或者需要分页显示，可以优先考虑使用 Sorted Set。</p>
+<h5 id="排行榜"><a href="#排行榜" class="headerlink" title="排行榜"></a>排行榜</h5><p>有序集合比较典型的使用场景就是排行榜。例如学生成绩的排名榜、游戏积分排行榜、视频播放排名、电商系统中商品的销量排名等。</p>
+<h5 id="电话、姓名排序"><a href="#电话、姓名排序" class="headerlink" title="电话、姓名排序"></a>电话、姓名排序</h5><p>使用有序集合的 <code>ZRANGEBYLEX</code> 或 <code>ZREVRANGEBYLEX</code> 可以帮助我们实现电话号码或姓名的排序，我们以 <code>ZRANGEBYLEX</code> （返回指定成员区间内的成员，按 key 正序排列，分数必须相同）为例。</p>
+<h3 id="位图"><a href="#位图" class="headerlink" title="位图"></a>位图</h3><p>Bitmap，即位图，是一串连续的二进制数组（0和1），可以通过偏移量（offset）定位元素。BitMap通过最小的单位bit来进行<code>0|1</code>的设置，表示某个元素的值或者状态，时间复杂度为O(1)。</p>
+<p>由于 bit 是计算机中最小的单位，使用它进行储存将非常节省空间，特别适合一些数据量大且使用<strong>二值统计的场景</strong>。</p>
+<h4 id="内部实现-3"><a href="#内部实现-3" class="headerlink" title="内部实现"></a>内部实现</h4><p>Bitmap 本身是用 String 类型作为底层数据结构实现的一种统计二值状态的数据类型。</p>
+<p>String 类型是会保存为二进制的字节数组，所以，Redis 就把字节数组的每个 bit 位利用起来，用来表示一个元素的二值状态，你可以把 Bitmap 看作是一个 bit 数组。</p>
+<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><p><code>help @bitmap</code></p>
+<h4 id="应用场景-3"><a href="#应用场景-3" class="headerlink" title="应用场景"></a>应用场景</h4><p>1.签到统计 2.判断用户登陆态 3.连续签到用户总数 等等</p>
+<h3 id="GEO"><a href="#GEO" class="headerlink" title="GEO"></a>GEO</h3><p>Redis GEO 是 Redis 3.2 版本新增的数据类型，主要用于存储地理位置信息，并对存储的信息进行操作。</p>
+<p>在日常生活中，我们越来越依赖搜索“附近的餐馆”、在打车软件上叫车，这些都离不开基于位置信息服务（Location-Based Service，LBS）的应用。LBS 应用访问的数据是和人或物关联的一组经纬度信息，而且要能查询相邻的经纬度范围，GEO 就非常适合应用在 LBS 服务的场景中</p>
+<h4 id="内部实现-4"><a href="#内部实现-4" class="headerlink" title="内部实现"></a>内部实现</h4><p>GEO 本身并没有设计新的底层数据结构，而是直接使用了 Sorted Set 集合类型。</p>
+<p>GEO 类型使用 GeoHash 编码方法实现了经纬度到 Sorted Set 中元素权重分数的转换，这其中的两个关键机制就是「对二维地图做区间划分」和「对区间进行编码」。一组经纬度落在某个区间后，就用区间的编码值来表示，并把编码值作为 Sorted Set 元素的权重分数。</p>
+<p>这样一来，我们就可以把经纬度保存到 Sorted Set 中，利用 Sorted Set 提供的“按权重进行有序范围查找”的特性，实现 LBS 服务中频繁使用的“搜索附近”的需求。</p>
+<h4 id="应用场景-4"><a href="#应用场景-4" class="headerlink" title="应用场景"></a>应用场景</h4><p>1.查找附加的人 车 物品</p>
+<h1 id="GO使用redis"><a href="#GO使用redis" class="headerlink" title="GO使用redis"></a>GO使用redis</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/go-redis/redis/v8</span><br></pre></td></tr></table></figure>
+<h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><h4 id="普通连接模式"><a href="#普通连接模式" class="headerlink" title="普通连接模式"></a>普通连接模式</h4><p>go-redis 库中使用 redis.NewClient 函数连接 Redis 服务器。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rdb := redis.NewClient(&amp;redis.Options&#123;</span><br><span class="line">	Addr:     <span class="string">&quot;localhost:6379&quot;</span>,</span><br><span class="line">	Password: <span class="string">&quot;&quot;</span>, <span class="comment">// 密码</span></span><br><span class="line">	DB:       <span class="number">0</span>,  <span class="comment">// 数据库</span></span><br><span class="line">	PoolSize: <span class="number">20</span>, <span class="comment">// 连接池大小</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>除此之外，还可以使用 redis.ParseURL 函数从表示数据源的字符串中解析得到 Redis 服务器的配置信息。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">opt, err := redis.ParseURL(<span class="string">&quot;redis://&lt;user&gt;:&lt;pass&gt;@localhost:6379/&lt;db&gt;&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	<span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">rdb := redis.NewClient(opt)</span><br></pre></td></tr></table></figure>
+
+<h4 id="TLS连接模式"><a href="#TLS连接模式" class="headerlink" title="TLS连接模式"></a>TLS连接模式</h4><p>如果使用的是 TLS 连接方式，则需要使用 tls.Config 配置。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rdb := redis.NewClient(&amp;redis.Options&#123;</span><br><span class="line">	TLSConfig: &amp;tls.Config&#123;</span><br><span class="line">		MinVersion: tls.VersionTLS12,</span><br><span class="line">		<span class="comment">// Certificates: []tls.Certificate&#123;cert&#125;,</span></span><br><span class="line">    <span class="comment">// ServerName: &quot;your.domain.com&quot;,</span></span><br><span class="line">	&#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Redis-Sentinel模式"><a href="#Redis-Sentinel模式" class="headerlink" title="Redis Sentinel模式"></a>Redis Sentinel模式</h4><p>使用下面的命令连接到由 Redis Sentinel 管理的 Redis 服务器。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rdb := redis.NewFailoverClient(&amp;redis.FailoverOptions&#123;</span><br><span class="line">    MasterName:    <span class="string">&quot;master-name&quot;</span>,</span><br><span class="line">    SentinelAddrs: []<span class="type">string</span>&#123;<span class="string">&quot;:9126&quot;</span>, <span class="string">&quot;:9127&quot;</span>, <span class="string">&quot;:9128&quot;</span>&#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Redis-Cluster模式"><a href="#Redis-Cluster模式" class="headerlink" title="Redis Cluster模式"></a>Redis Cluster模式</h4><p>使用下面的命令连接到 Redis Cluster，go-redis 支持按延迟或随机路由命令。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rdb := redis.NewClusterClient(&amp;redis.ClusterOptions&#123;</span><br><span class="line">    Addrs: []<span class="type">string</span>&#123;<span class="string">&quot;:7000&quot;</span>, <span class="string">&quot;:7001&quot;</span>, <span class="string">&quot;:7002&quot;</span>, <span class="string">&quot;:7003&quot;</span>, <span class="string">&quot;:7004&quot;</span>, <span class="string">&quot;:7005&quot;</span>&#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 若要根据延迟或随机路由命令，请启用以下命令之一</span></span><br><span class="line">    <span class="comment">// RouteByLatency: true,</span></span><br><span class="line">    <span class="comment">// RouteRandomly: true,</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>从<code>Redis</code>获取到的值是空接口类型，要是其转化为string类型可通过fmt.Sprintf函数<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">str:=<span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> k, v := <span class="keyword">range</span> val.([]<span class="keyword">interface</span>&#123;&#125;) &#123;</span><br><span class="line">	str = fmt.Sprintf(<span class="string">&quot;%v&quot;</span>, v)</span><br><span class="line">	fmt.Println(k, str)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/08/07/Redis%E7%AC%94%E8%AE%B0/" data-id="clyfhaq7600041487guc769lh" data-title="Redis笔记" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-MySQL笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/05/09/MySQL%E7%AC%94%E8%AE%B0/" class="article-date">
@@ -314,6 +777,10 @@
       <ul>
         
           <li>
+            <a href="/2024/07/16/%E5%86%8D%E9%81%87%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">再遇跨域问题</a>
+          </li>
+        
+          <li>
             <a href="/2024/07/06/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%AC%94%E8%AE%B0/">正则表达式笔记</a>
           </li>
         
@@ -327,10 +794,6 @@
         
           <li>
             <a href="/2024/06/23/%E4%B8%80%E4%BA%9B%E6%83%B3%E8%AF%B4%E7%9A%84%E8%AF%9D/">一些想说的话</a>
-          </li>
-        
-          <li>
-            <a href="/2024/04/07/C++%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">C++算法笔记</a>
           </li>
         
       </ul>
