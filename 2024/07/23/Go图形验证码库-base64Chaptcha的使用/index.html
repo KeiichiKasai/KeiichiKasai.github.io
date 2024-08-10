@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Go图形验证码库-base64Chaptcha的使用 | Keiichi&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="前言我们在登录各个平台时，总会遇到这样的图形验证码（CAPTCHA） ![[image&#x2F;e.png]] 它的全称为“Completely Automated Public Turing test to tell Computers and Humans Apart”（全自动区分计算机和人类的图灵测试）的缩写，是一种区分用户是计算机还是人的公共全自动程序。可以防止：恶意破解密码、刷票、论坛">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go图形验证码库-base64Chaptcha的使用">
+<meta property="og:url" content="http://example.com/2024/07/23/Go%E5%9B%BE%E5%BD%A2%E9%AA%8C%E8%AF%81%E7%A0%81%E5%BA%93-base64Chaptcha%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Keiichi&#39;s blog">
+<meta property="og:description" content="前言我们在登录各个平台时，总会遇到这样的图形验证码（CAPTCHA） ![[image&#x2F;e.png]] 它的全称为“Completely Automated Public Turing test to tell Computers and Humans Apart”（全自动区分计算机和人类的图灵测试）的缩写，是一种区分用户是计算机还是人的公共全自动程序。可以防止：恶意破解密码、刷票、论坛">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-23T09:56:58.000Z">
+<meta property="article:modified_time" content="2024-08-10T06:04:19.224Z">
+<meta property="article:author" content="Keiichi">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Keiichi's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Keiichi&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Go图形验证码库-base64Chaptcha的使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/07/23/Go%E5%9B%BE%E5%BD%A2%E9%AA%8C%E8%AF%81%E7%A0%81%E5%BA%93-base64Chaptcha%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time class="dt-published" datetime="2024-07-23T09:56:58.000Z" itemprop="datePublished">2024-07-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Go图形验证码库-base64Chaptcha的使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我们在登录各个平台时，总会遇到这样的图形验证码（CAPTCHA）</p>
+<p>![[image&#x2F;e.png]]</p>
+<p>它的全称为“Completely Automated Public Turing test to tell Computers and Humans Apart”（全自动区分计算机和人类的图灵测试）的缩写，是一种区分用户是计算机还是人的公共全自动程序。可以防止：恶意破解密码、刷票、论坛灌水，有效防止某个黑客对某一个特定注册用户用特定程序暴力破解方式进行不断的登陆尝试，实际上用验证码是现在很多网站通行的方式，我们利用比较简易的方式实现了这个功能。这个问题可以由计算机生成并评判，但是必须只有人类才能解答。由于计算机无法解答CAPTCHA的问题，所以回答出问题的用户就可以被认为是人类。不过现在已经不一样了，在各种人工智能大模型的加持下，这些问题也不是问题了。不过在大多数情况下，这些验证码仍然是有着一定缓冲流量的作用的。</p>
+<p>如何在自己项目中使用图形验证码呢？<br>我们可以使用github上面的base64CAPTCHA</p>
+<h2 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h2><p><a target="_blank" rel="noopener" href="https://github.com/mojocn/base64Captcha">项目地址</a><br><a target="_blank" rel="noopener" href="https://zh.mojotv.cn/go/refactor-base64-captcha">官方文档</a></p>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>首先第一步：<code>import github.com/mojocn/base64Captcha</code></p>
+<p>然后构建自己的store用于存储验证码，共享存储</p>
+<p>自己实现的话要注意并发安全，记得加锁</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Store <span class="keyword">interface</span> &#123;</span><br><span class="line">	<span class="comment">// Set sets the digits for the captcha id.</span></span><br><span class="line">	Set(id <span class="type">string</span>, value <span class="type">string</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Get returns stored digits for the captcha id. Clear indicates</span></span><br><span class="line">	<span class="comment">// whether the captcha must be deleted from the store.</span></span><br><span class="line">	Get(id <span class="type">string</span>, clear <span class="type">bool</span>) <span class="type">string</span></span><br><span class="line">	</span><br><span class="line">    <span class="comment">//Verify captcha&#x27;s answer directly</span></span><br><span class="line">	Verify(id, answer <span class="type">string</span>, clear <span class="type">bool</span>) <span class="type">bool</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不过更推荐用官方为我们提供的默认的<code>DefaultMemStore</code>，很方便</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> memoryStore <span class="keyword">struct</span> &#123;  </span><br><span class="line">    <span class="comment">//🔒加锁防止并发问题</span></span><br><span class="line">    sync.RWMutex                </span><br><span class="line">    <span class="comment">//用map来存储对应id </span></span><br><span class="line">    digitsById <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span> </span><br><span class="line">    <span class="comment">//一个双向链表，用于根据时间顺序存储 `idByTimeValue` 类型的元素，便于清理过期的验证码。</span></span><br><span class="line">    idByTime   *list.List  </span><br><span class="line">    <span class="comment">//自上次垃圾回收以来存储的验证码数量。</span></span><br><span class="line">    numStored <span class="type">int</span>  </span><br><span class="line">    <span class="comment">//当达到这个阈值时触发垃圾回收。  </span></span><br><span class="line">    collectNum <span class="type">int</span>  </span><br><span class="line">    <span class="comment">//验证码的有效期限</span></span><br><span class="line">    expiration time.Duration</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewMemoryStore</span><span class="params">(collectNum <span class="type">int</span>, expiration time.Duration)</span></span> Store &#123;  </span><br><span class="line">    s := <span class="built_in">new</span>(memoryStore)  </span><br><span class="line">    s.digitsById = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span>)  </span><br><span class="line">    s.idByTime = list.New()  </span><br><span class="line">    s.collectNum = collectNum  </span><br><span class="line">    s.expiration = expiration  </span><br><span class="line">    <span class="keyword">return</span> s  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *memoryStore)</span></span> Set(id <span class="type">string</span>, value <span class="type">string</span>) <span class="type">error</span> &#123;  </span><br><span class="line">    s.Lock()  </span><br><span class="line">    s.digitsById[id] = value  </span><br><span class="line">    s.idByTime.PushBack(idByTimeValue&#123;time.Now(), id&#125;)  </span><br><span class="line">    s.numStored++  </span><br><span class="line">    s.Unlock()  </span><br><span class="line">    <span class="keyword">if</span> s.numStored &gt; s.collectNum &#123;  </span><br><span class="line">       <span class="keyword">go</span> s.collect()  <span class="comment">//根据idByTime对应时间戳回收过期验证码</span></span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *memoryStore)</span></span> Verify(id, answer <span class="type">string</span>, clear <span class="type">bool</span>) <span class="type">bool</span> &#123;  </span><br><span class="line">    <span class="keyword">if</span> id == <span class="string">&quot;&quot;</span> || answer == <span class="string">&quot;&quot;</span> &#123;  </span><br><span class="line">       <span class="keyword">return</span> <span class="literal">false</span>  </span><br><span class="line">    &#125;  </span><br><span class="line">    v := s.Get(id, clear)  </span><br><span class="line">    <span class="keyword">return</span> v != <span class="string">&quot;&quot;</span> &amp;&amp; v == answer  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *memoryStore)</span></span> Get(id <span class="type">string</span>, clear <span class="type">bool</span>) (value <span class="type">string</span>) &#123;  </span><br><span class="line">    <span class="keyword">if</span> !clear &#123;  </span><br><span class="line">       <span class="comment">// When we don&#x27;t need to clear captcha, acquire read lock.  </span></span><br><span class="line">       s.RLock()  </span><br><span class="line">       <span class="keyword">defer</span> s.RUnlock()  </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">       s.Lock()  </span><br><span class="line">       <span class="keyword">defer</span> s.Unlock()  </span><br><span class="line">    &#125;  </span><br><span class="line">    value, ok := s.digitsById[id]  </span><br><span class="line">    <span class="keyword">if</span> !ok &#123;  </span><br><span class="line">       <span class="keyword">return</span>  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">if</span> clear &#123;  </span><br><span class="line">       <span class="built_in">delete</span>(s.digitsById, id)  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span>  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们看看除了Store还需要什么</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Captcha <span class="keyword">struct</span> &#123;  </span><br><span class="line">    Driver Driver  </span><br><span class="line">    Store  Store  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还差个Driver，观察一下Driver的结构，可以发现他是一个验证码接口，实现验证码图像的绘制</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Driver captcha interface for captcha engine to to write staff</span></span><br><span class="line"><span class="keyword">type</span> Driver <span class="keyword">interface</span> &#123;</span><br><span class="line">	<span class="comment">//DrawCaptcha draws binary item</span></span><br><span class="line">	DrawCaptcha(content <span class="type">string</span>) (item Item, err <span class="type">error</span>)</span><br><span class="line">	<span class="comment">//GenerateIdQuestionAnswer creates rand id, content and answer</span></span><br><span class="line">	GenerateIdQuestionAnswer() (id, q, a <span class="type">string</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 我们通常使用它自带的，有四种</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/mojocn/base64Captcha/blob/master/driver_digit.go">Driver Digit</a>数字验证码</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mojocn/base64Captcha/blob/master/driver_string.go">Driver String</a>字符串验证码</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mojocn/base64Captcha/blob/master/driver_math.go">Driver Math</a>简易数学题验证码</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mojocn/base64Captcha/blob/master/driver_chinses.go">Driver Chinese</a> 中文验证码</li>
+</ol>
+<p>能覆盖到我们所有常用的验证码了</p>
+<p>再使用NewCaptcha构建新的Captcha</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewCaptcha</span><span class="params">(driver Driver, store Store)</span></span> *Captcha &#123;  </span><br><span class="line">    <span class="keyword">return</span> &amp;Captcha&#123;Driver: driver, Store: store&#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后调用captcha的Generate函数即可</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Captcha)</span></span> Generate() (id, b64s, answer <span class="type">string</span>, err <span class="type">error</span>) &#123;  </span><br><span class="line">    id, content, answer := c.Driver.GenerateIdQuestionAnswer()  </span><br><span class="line">    item, err := c.Driver.DrawCaptcha(content)  </span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;  </span><br><span class="line">       <span class="keyword">return</span> <span class="string">&quot;&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="string">&quot;&quot;</span>, err  </span><br><span class="line">    &#125;  </span><br><span class="line">    err = c.Store.Set(id, answer)  </span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;  </span><br><span class="line">       <span class="keyword">return</span> <span class="string">&quot;&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="string">&quot;&quot;</span>, err  </span><br><span class="line">    &#125;  </span><br><span class="line">    b64s = item.EncodeB64string()  </span><br><span class="line">    <span class="keyword">return</span>  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>他会返回</p>
+<ul>
+<li>id：验证码id</li>
+<li>b64s：可用于生成图像的base64string</li>
+<li>answer：正确答案 </li>
+<li>err：出现的错误</li>
+</ul>
+<p>之后再携带 id和answer调用verify函数即可 </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Captcha)</span></span> Verify(id, answer <span class="type">string</span>, clear <span class="type">bool</span>) (match <span class="type">bool</span>) &#123;</span><br><span class="line">	match = c.Store.Get(id, clear) == answer</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="简易例子"><a href="#简易例子" class="headerlink" title="简易例子"></a>简易例子</h2><p>这里以数字验证码为例</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> store = base64Captcha.DefaultMemStore  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GetCaptcha</span><span class="params">(c *gin.Context)</span></span> &#123;  </span><br><span class="line">    <span class="comment">//driver决定生成的图像是什么  </span></span><br><span class="line">    driver := base64Captcha.NewDriverDigit(<span class="number">80</span>, <span class="number">240</span>, <span class="number">5</span>, <span class="number">0.7</span>, <span class="number">80</span>)  </span><br><span class="line">    cp := base64Captcha.NewCaptcha(driver, store)  </span><br><span class="line">    id, b64s, _, err := cp.Generate()  </span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;  </span><br><span class="line">       zap.S().Errorw(<span class="string">&quot;生成验证码错误:&quot;</span>, err.Error())  </span><br><span class="line">       c.JSON(http.StatusInternalServerError, gin.H&#123;  </span><br><span class="line">          <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;生成验证码失败&quot;</span>,  </span><br><span class="line">       &#125;)  </span><br><span class="line">       <span class="keyword">return</span>  </span><br><span class="line">    &#125;  </span><br><span class="line">    c.JSON(http.StatusOK, gin.H&#123;  </span><br><span class="line">       <span class="string">&quot;captchaId&quot;</span>: id,  </span><br><span class="line">       <span class="string">&quot;picPath&quot;</span>:   b64s,  </span><br><span class="line">    &#125;)  </span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过调用该接口就可以拿到base64string，可在前端展示对应图像</p>
+<p>用户获取到图像后填写对应表单，就可以拿去做校验，再进行后续的业务流程</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/07/23/Go%E5%9B%BE%E5%BD%A2%E9%AA%8C%E8%AF%81%E7%A0%81%E5%BA%93-base64Chaptcha%E7%9A%84%E4%BD%BF%E7%94%A8/" data-id="clznsl41x0000tc870htlcolm" data-title="Go图形验证码库-base64Chaptcha的使用" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/08/10/%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E5%AD%98%E5%85%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          在数据库中存入自定义类型
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/07/16/%E5%86%8D%E9%81%87%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">再遇跨域问题</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/08/10/%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E5%AD%98%E5%85%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B/">在数据库中存入自定义类型</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/23/Go%E5%9B%BE%E5%BD%A2%E9%AA%8C%E8%AF%81%E7%A0%81%E5%BA%93-base64Chaptcha%E7%9A%84%E4%BD%BF%E7%94%A8/">Go图形验证码库-base64Chaptcha的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/16/%E5%86%8D%E9%81%87%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">再遇跨域问题</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/06/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%AC%94%E8%AE%B0/">正则表达式笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2024/06/29/go%E7%AE%97%E6%B3%95%E5%B0%8F%E6%8A%84/">go算法小抄</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 Keiichi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

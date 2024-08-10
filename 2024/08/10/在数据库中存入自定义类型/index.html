@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>在数据库中存入自定义类型 | Keiichi&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="起因之前写商城项目放产品图时也遇到过这种情况，不过当时为了图方便，就把产品图缩减至一张，这样就没有问题了 从源头上解决了问题 最近在写小demo的时候遇到了又需要存入多张图片url的情况，那么到底该如何处理这种问题呢？ 难点我们都知道数据库是没有数组类型的，没有办法存入数组类型的数据，所以直接放入url的string切片是行不通的 1[&quot;http:&#x2F;&#x2F;baidu.com&#x2F;a.png&amp;qu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在数据库中存入自定义类型">
+<meta property="og:url" content="http://example.com/2024/08/10/%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E5%AD%98%E5%85%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Keiichi&#39;s blog">
+<meta property="og:description" content="起因之前写商城项目放产品图时也遇到过这种情况，不过当时为了图方便，就把产品图缩减至一张，这样就没有问题了 从源头上解决了问题 最近在写小demo的时候遇到了又需要存入多张图片url的情况，那么到底该如何处理这种问题呢？ 难点我们都知道数据库是没有数组类型的，没有办法存入数组类型的数据，所以直接放入url的string切片是行不通的 1[&quot;http:&#x2F;&#x2F;baidu.com&#x2F;a.png&amp;qu">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-08-10T05:55:37.000Z">
+<meta property="article:modified_time" content="2024-08-10T06:31:51.221Z">
+<meta property="article:author" content="Keiichi">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Keiichi's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Keiichi&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-在数据库中存入自定义类型" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/08/10/%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E5%AD%98%E5%85%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B/" class="article-date">
+  <time class="dt-published" datetime="2024-08-10T05:55:37.000Z" itemprop="datePublished">2024-08-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      在数据库中存入自定义类型
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>之前写商城项目放产品图时也遇到过这种情况，不过当时为了图方便，就把产品图缩减至一张，这样就没有问题了 <del>从源头上解决了问题</del></p>
+<p>最近在写小demo的时候遇到了又需要存入多张图片url的情况，那么到底该如何处理这种问题呢？</p>
+<h2 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h2><p>我们都知道数据库是没有数组类型的，没有办法存入数组类型的数据，所以直接放入url的string切片是行不通的</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&quot;http://baidu.com/a.png&quot;</span>,<span class="string">&quot;http://baidu.com/b.png&quot;</span>,<span class="string">&quot;http://baidu.com/c.png&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>一开始的想法是把这些url拼接起来，每个url之间用特定字符<code>$</code>间隔 </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;http://baidu.com/a.png$http://baidu.com/b.png$http://baidu.com/c.png&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>用<code>varchar</code>的类型存入数据库中，使用时只需要拿出来写段逻辑处理就可以了</p>
+<p>不过在实际使用时还是不够直观，而且要重新写段逻辑来处理这个数据，有没有更方便的方法呢？</p>
+<p>既然不想单独写段逻辑来处理，我们可以用上标准库自带的函数处理呗，那有什么类型的数据可以满足我们这个要求</p>
+<p>自然，我们会想到<code>JSON</code>，标准库<code>encoding/json</code>中有<code>Marshal</code>方法可以直接序列化我们的string切片，存入数据库中，之后我们也可以通过<code>Unmarshal</code>直接反序列化来取出我们的原始数据</p>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p>理论成立，实践开始</p>
+<p>假设我们现在写一个商城项目</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Good <span class="keyword">struct</span> &#123;  </span><br><span class="line">    Name     <span class="type">string</span></span><br><span class="line">    Images   []<span class="type">string</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>Images</code>中就是为我们需要存入的图片url</p>
+<p>再使用gorm与数据库建立连接   </p>
+<p>为了让gorm识别到我们自定义的类型，该怎么做？</p>
+<p>让我们查查<a target="_blank" rel="noopener" href="https://learnku.com/docs/gorm/v2/data_types/9763">官方文档</a></p>
+<p>要实现自定义数据类型，我们必须要实现<code>Scanner</code>和<code>Valuer</code>接口</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> GormList []<span class="type">string</span>  </span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现 driver.Valuer 接口，Value 返回 json value</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(g GormList)</span></span> Value() (driver.Value, <span class="type">error</span>) &#123;  </span><br><span class="line">    <span class="keyword">return</span> json.Marshal(g)  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现 sql.Scanner 接口，Scan 将 value 扫描至 Jsonb</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(g *GormList)</span></span> Scan(src <span class="keyword">interface</span>&#123;&#125;) <span class="type">error</span> &#123;  </span><br><span class="line">    <span class="keyword">return</span> json.Unmarshal(src.([]<span class="type">byte</span>), &amp;g)  </span><br><span class="line">&#125;<span class="string">``</span><span class="string">`</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">之后再改一下我们定义的结构体</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="string">``</span><span class="keyword">go</span></span><br><span class="line"><span class="keyword">type</span> Good <span class="keyword">struct</span> &#123;  </span><br><span class="line">    Name     <span class="type">string</span></span><br><span class="line">    Images   GormList</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>大功告成，这样我们就可以将string切片以json形式存入数据库</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/08/10/%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E5%AD%98%E5%85%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B/" data-id="clznsl4230001tc872pb8fx60" data-title="在数据库中存入自定义类型" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/07/23/Go%E5%9B%BE%E5%BD%A2%E9%AA%8C%E8%AF%81%E7%A0%81%E5%BA%93-base64Chaptcha%E7%9A%84%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Go图形验证码库-base64Chaptcha的使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/08/10/%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E5%AD%98%E5%85%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B/">在数据库中存入自定义类型</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/23/Go%E5%9B%BE%E5%BD%A2%E9%AA%8C%E8%AF%81%E7%A0%81%E5%BA%93-base64Chaptcha%E7%9A%84%E4%BD%BF%E7%94%A8/">Go图形验证码库-base64Chaptcha的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/16/%E5%86%8D%E9%81%87%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">再遇跨域问题</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/06/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%AC%94%E8%AE%B0/">正则表达式笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2024/06/29/go%E7%AE%97%E6%B3%95%E5%B0%8F%E6%8A%84/">go算法小抄</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 Keiichi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
